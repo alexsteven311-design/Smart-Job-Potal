@@ -246,11 +246,11 @@ Contributions are welcome! Create a pull request or open an issue to suggest new
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23226_localhost.jpeg?raw=true)
 
-**Description** :
+**Overview** :
 
 The home page provides an attractive landing experience for job seekers. It highlights TalentBridge's AI-powered features, displays platform statistics, and provides quick navigation to browse jobs, access dashboards, and use AI tools.
 
-**Features:**
+**Key components:**
 
 - Modern Hero Section
 
@@ -266,17 +266,29 @@ The home page provides an attractive landing experience for job seekers. It high
 
 - Responsive Dark Theme
 
+**<h2>👤 User Profile Management</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_232132_localhost.jpeg?raw=true)
 
-**👤 Candidate Registration**
+**Overview:** User settings page displaying personal details, contact info, professional links, and technical skill sets.
+
+**Key Components:**
+
+- Resume Autofill banner allowing quick profile setup from parsed resume data.
+
+- Input fields for contact details, LinkedIn, GitHub portfolio, and personal website links.
+
+- Experience summary section featuring years of experience, preferred role, and an indexed list of technical skills.
+
+**<h2>👤 Candidate Registration</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124441_localhost.jpeg?raw=true)
 
-**Description:**
+**Overview:**
 
 The registration page allows new candidates to create an account by providing their professional information, skills, and preferred job role.
 
-**Features**
+**Key Components:**
 
 - Candidate registration
 
@@ -290,15 +302,15 @@ The registration page allows new candidates to create an account by providing th
 
 - Secure account creation
 
-**🔐 Login Page**
+**<h2>🔐 Login Page</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124413_localhost.jpeg?raw=true)
 
-**Description:**
+**Overview:**
 
 A secure authentication page that allows registered users to access their personalized dashboard and manage applications.
 
-**Features**
+**Key Components:**
 
 - Email authentication
 
@@ -308,26 +320,177 @@ A secure authentication page that allows registered users to access their person
 
 - Redirect to dashboard after login
 
+**<h2>💼 Job Listings</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23338_localhost.jpeg?raw=true)
+
+**Overview:**
+
+The Jobs page allows users to search and explore opportunities from different companies using advanced filtering options.
+
+**Key Components:**
+
+- Search jobs by title
+
+- Search by company
+
+- Search by location
+
+-  Category filters
+
+- Save jobs
+
+- Apply Now functionality
+
+- Responsive job cards
+
+- Experience-based filtering
+
+**<h2>📄 Easy Apply Portal</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124936_localhost.jpeg?raw=true)
 
+**Overview:**
+
+The application page enables candidates to submit job applications effortlessly. Personal details are automatically populated, allowing users to upload resumes and send personalized cover letters in just one click.
+
+**Key Components:**
+- Auto-filled candidate information
+
+- Resume upload
+
+- Personalized cover letter
+
+- Expected salary input
+
+- Notice period selection
+
+- One-click application submission
+
+- Validation and confirmation
+
+**<h2>🏢 Company Directory & Ratings</h2>**
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_2353_localhost.jpeg?raw=true)
+
+**Overview:** Searchable employer discovery module for exploring potential workplaces.
+
+**Key Components:**
+
+- Alphabetically structured directory of top corporate and public sector employers.
+
+- User rating indicators and review counts for company reputation insight.
+
+- Open position counts per organization with direct navigation links.
+
+**<h2>🎯 AI-Powered Job Recommendations</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_2361_localhost.jpeg?raw=true)
 
+**Overview**: Personalized job matching interface tailored to candidate skill sets.
+
+**Key Components:**
+
+- Advanced filter options based on location, years of experience, salary (LPA), and specific tech stacks.
+
+- Percentage-based match score indicating alignment between candidate skills and job requirements.
+
+- Card-based job postings displaying required skills, location, estimated salary, and direct application triggers.
+
+**<h2>📰 Corporate News & Community Feed:</h2>**
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23816_localhost.jpeg?raw=true)
+
+**Overview:** Real-time social and tech industry news feed keeping job seekers informed.
+
+**Key Components:**
+
+- Categorized feed updates filtered by News, Hiring, and Success stories.
+
+- Interactive posts with engagement metrics (likes, comments, reposts).
+
+- Community post creation tool allowing users to share announcements.
+
+**<h2>📊 User Dashboard</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23845_localhost.jpeg?raw=true)
 
+**Overview:** Centralized hub tracking job application metrics and quick account status.
+
+**Key Components:**
+
+- Profile completion tracker and resume evaluation score card.
+
+- Real-time metrics for submitted applications and upcoming scheduled interviews.
+
+- Personalized job recommendations based on user activity and profile details.
+
+**<h2>📄 AI Resume Score Checker</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23931_localhost.jpeg?raw=true)
 
+**Overview:** Comprehensive ATS analysis tool providing feedback on resume formatting, keyword optimization, and skill alignment.
+
+**Key Components:**
+
+- Breakdown of metrics including Skills Match, ATS Compatibility, Experience Level, and Resume Keywords.
+
+- Actionable Improvement Suggestions highlighting missing sections or certifications.
+
+- Curated list of suggested jobs matching detected resume skills along with targeted skill improvement resources.
+
+**<h2>📝 AI Cover Letter Generator</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_231023_localhost.jpeg?raw=true)
+
+**Overview:** Automated tool that generates customized, role-specific cover letters using uploaded resume data and job details.
+
+**Key Components:**
+
+- Simple 3-step workflow: Upload Resume $\rightarrow$ Choose Job $\rightarrow$ Generate Cover Letter.
+
+- Fully editable text preview area allowing customization before finalizing.
+
+- One-click action buttons to copy to clipboard or download as a document.
+
+**<h2>💬 AI Interview Question & Answer Interface</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23119_localhost.jpeg?raw=true)
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_231218_localhost.jpeg?raw=true)
 
+**Overview:** Interactive practice interface for answering AI-generated behavioral and technical questions.
+
+**Key Components:**
+
+- Focuses on specific categories (e.g., Introduction, Technical, Collaboration).
+
+- Rich-text answer box with real-time response saving and progress tracking.
+
+- Navigation controls to seamlessly transition through interview questions.
+
+**<h2>📈 AI Interview Evaluation & Feedback</h2>**
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_231552_localhost.jpeg?raw=true)
 
+**Overview:** Automated evaluation screen providing detailed feedback on completed interview responses.
+
+**Key Components:**
+
+- Overall Performance Score calculated based on relevance, structure, detail, and impact.
+
+- Detailed breakdown of user responses alongside targeted suggestions for improvement.
+
+- Question-by-question scoring to identify specific areas for growth.
+
+**<h2>💼 Recruiter Dashboard (Job Posting)</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_104350_localhost.jpeg?raw=true)
+
+**Overview:** Portal for recruiters and hiring managers to post new job openings and manage incoming candidates.
+
+**Key Components:**
+
+- Multi-field form for defining job details (Title, Company, Location, Role Category, and Experience required).
+
+- Markdown-supported Job Description editor for structured, rich-text role details.
+
+- Options to toggle workplace arrangements like Remote / Hybrid work settings.
+
