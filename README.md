@@ -242,13 +242,70 @@ npm start
 
 Contributions are welcome! Create a pull request or open an issue to suggest new features, bug fixes, or improvements.
 
+**🏠 Home Page**
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23226_localhost.jpeg?raw=true)
+
+**Description** :
+
+The home page provides an attractive landing experience for job seekers. It highlights TalentBridge's AI-powered features, displays platform statistics, and provides quick navigation to browse jobs, access dashboards, and use AI tools.
+
+**Features:**
+
+- Modern Hero Section
+
+- AI Resume Score Preview
+
+- Interview Notification Cards
+
+- Platform Statistics
+
+- Feature Highlights
+
+- Call-to-Action Buttons
+
+- Responsive Dark Theme
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_232132_localhost.jpeg?raw=true)
 
+**👤 Candidate Registration**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124441_localhost.jpeg?raw=true)
 
+**Description:**
+
+The registration page allows new candidates to create an account by providing their professional information, skills, and preferred job role.
+
+**Features**
+
+- Candidate registration
+
+- Recruiter/Candidate selection
+
+- Skills input
+
+-Preferred role selection
+
+- Experience details
+
+- Secure account creation
+
+**🔐 Login Page**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124413_localhost.jpeg?raw=true)
+
+**Description:**
+
+A secure authentication page that allows registered users to access their personalized dashboard and manage applications.
+
+**Features**
+
+- Email authentication
+
+- Secure password login
+
+- Clean responsive design
+
+- Redirect to dashboard after login
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23338_localhost.jpeg?raw=true)
 
