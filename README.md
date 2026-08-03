@@ -24,6 +24,40 @@ The Smart Job Portal is a full-stack application that connects job seekers, recr
 
 ## Project Structure
 
+```
+Server/
+├── .gitignore
+├── README.md
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/com/smartjobportal/
+│   │   │   ├── controller/
+│   │   │   ├── dto/
+│   │   │   ├── model/
+│   │   │   ├── repository/
+│   │   │   ├── security/
+│   │   │   └── service/
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       ├── application-mysql.properties
+│   │       ├── data.sql
+│   │       └── static/
+│   │           └── browser/
+│   └── test/
+├── target/
+└── Client/
+    ├── angular.json
+    ├── package.json
+    ├── package-lock.json
+    ├── tsconfig.json
+    ├── src/
+    │   ├── app/
+    │   ├── assets/
+    │   └── index.html
+    └── README.md
+```
+
 - `Server/` - Spring Boot backend source, API controllers, services, models, repositories, and application configuration
 - `Server/Client/` - Angular frontend source, UI components, routes, and client app configuration
 - `Server/src/main/resources/static/` - static frontend build assets served by the backend
