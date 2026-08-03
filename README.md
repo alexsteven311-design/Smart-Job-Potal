@@ -1,35 +1,108 @@
-# Smart Job Portal
+# 🎯 Smart Job Portal: AI-Powered Hiring Platform
 
-## Overview
+A modern, full-stack smart job portal built with **Angular** (frontend) and **Spring Boot** (backend). This platform delivers a seamless candidate and recruiter experience with AI resume analysis, job matching, application tracking, and mock interviews.
 
-The Smart Job Portal is a full-stack application that connects job seekers, recruiters, and administrators with intelligent hiring workflows. It includes an Angular frontend and a Spring Boot backend, with features for resume analysis, job matching, application tracking, mock interviews, and recruiter management.
+---
 
-## Table of Contents
+## 📋 Table of Contents
 
 - [Overview](#overview)
 - [Tech Stack](#tech-stack)
+- [Features](#features)
 - [Project Structure](#project-structure)
-- [Smart Job Portal features](#smart-job-portal-features)
-- [Run backend locally](#run-backend-locally)
-- [Run frontend locally](#run-frontend-locally)
-- [Database support](#database-support)
+- [Setup & Installation](#setup--installation)
+- [API Documentation](#api-documentation)
+- [Running the Application](#running-the-application)
+- [Development](#development)
+- [Contributing](#contributing)
 
-## Tech Stack
+---
 
-- Backend: Java, Spring Boot, Spring Data JPA, Spring Security
-- Frontend: Angular
-- Database: H2 (development) and MySQL (optional production profile)
-- Build tools: Maven for backend, npm/Angular CLI for frontend
-- Authentication: JWT-based role access for candidates, recruiters, and admins
-- Development tools: IntelliJ IDEA / VS Code, Git, Amazon Q, Postman, Maven Wrapper, npm scripts, Prettier
+## 📌 Overview
 
-## Project Structure
+Smart Job Portal is designed to connect job seekers, recruiters, and administrators through intelligent hiring workflows.
+
+- **Frontend**: Angular-based single-page application with candidate and recruiter dashboards
+- **Backend**: Spring Boot REST API for authentication, job management, resume processing, and application tracking
+- **AI Capabilities**: Resume analysis, ATS scoring, job recommendations, and mock interview scoring
+- **Roles**: Candidate, Recruiter, Admin
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: Angular
+- **Language**: TypeScript
+- **Styling**: CSS / SCSS
+- **Build Tool**: Angular CLI
+- **Client**: Angular HttpClient with RxJS
+
+### Backend
+- **Framework**: Spring Boot
+- **Language**: Java
+- **Build Tool**: Maven
+- **API**: RESTful Web Services
+- **Database**: H2 (development) and MySQL (optional production)
+
+### Development Tools
+- **Version Control**: Git & GitHub
+- **Editor**: VS Code / IntelliJ IDEA
+- **Formatter**: Prettier
+- **API Testing**: Postman
+- **Shell**: PowerShell / Bash
+
+---
+
+## ✨ Features
+
+### Candidate Features
+- Resume upload and AI resume analysis
+- ATS resume scoring and resume parsing
+- Job search and job recommendations
+- Apply to jobs with application status tracking
+- Candidate profile management
+- Mock interview creation, answering, and scoring
+- Download resumes and view application history
+
+### Recruiter Features
+- Post and manage job listings
+- View and shortlist applicants
+- Schedule interviews and send notifications
+- Download candidate resumes
+- Manage recruiter dashboard and application workflows
+
+### Admin Features
+- Manage users and recruiters
+- Delete invalid job postings
+- View dashboard analytics and application statistics
+
+### Backend Features
+- JWT authentication with role-based authorization
+- REST API endpoints for jobs, users, applications, resumes, mock interviews, and more
+- H2 database for development and MySQL support for production
+- Email notification integration
+- Error handling and security configuration
+
+---
+
+## 📁 Project Structure
 
 ```
-Server/
+Smart-Job-Potal/
 ├── .gitignore
 ├── README.md
 ├── pom.xml
+├── Client/
+│   ├── angular.json
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── tsconfig.json
+│   ├── src/
+│   │   ├── app/
+│   │   ├── assets/
+│   │   └── index.html
+│   └── README.md
 ├── src/
 │   ├── main/
 │   │   ├── java/com/smartjobportal/
@@ -46,173 +119,125 @@ Server/
 │   │       └── static/
 │   │           └── browser/
 │   └── test/
-├── target/
-└── Client/
-    ├── angular.json
-    ├── package.json
-    ├── package-lock.json
-    ├── tsconfig.json
-    ├── src/
-    │   ├── app/
-    │   ├── assets/
-    │   └── index.html
-    └── README.md
+└── target/
 ```
 
-- `Server/` - Spring Boot backend source, API controllers, services, models, repositories, and application configuration
-- `Server/Client/` - Angular frontend source, UI components, routes, and client app configuration
-- `Server/src/main/resources/static/` - static frontend build assets served by the backend
-- `Server/src/main/resources/application.properties` - default Spring Boot configuration
-- `Server/src/main/resources/application-mysql.properties` - MySQL profile configuration
+---
 
-## Setup and Installation
+## 🚀 Setup & Installation
 
 ### Prerequisites
+- Node.js 18+ with npm
+- Java 17+
+- Maven 3.8+
+- Git
+- MySQL (optional for production)
 
-- Java 17 or newer
-- Maven 3.8+ installed
-- Node.js 18+ and npm 11+ installed
-- MySQL database (optional, for production)
+### 1. Clone the repository
+```bash
+git clone https://github.com/alexsteven311-design/Smart-Job-Potal.git
+cd Smart-Job-Potal
+```
 
-### Backend setup
+### 2. Backend setup
+```bash
+mvn clean install
+mvn spring-boot:run
+```
 
-1. Open a terminal in the `Server/` folder.
-2. Install dependencies and build the backend:
-   ```powershell
-   mvn clean install
-   ```
-3. Run the backend service:
-   ```powershell
-   mvn spring-boot:run
-   ```
+### 3. Frontend setup
+```bash
+cd Client
+npm install
+npm start
+```
 
-### Frontend setup
+### 4. Configuration
+- Update `src/main/resources/application.properties` for H2 configuration
+- Update `src/main/resources/application-mysql.properties` for MySQL credentials
+- Use `Client/package.json` scripts for frontend build and testing
 
-1. Open a terminal in the `Server/Client/` folder.
-2. Install frontend dependencies:
-   ```powershell
-   npm install
-   ```
-3. Start the Angular development server:
-   ```powershell
-   npm start
-   ```
+---
 
-### Configuration
+## 📘 API Documentation
 
-- Update backend database configuration in `Server/src/main/resources/application.properties` for H2
-- Update `Server/src/main/resources/application-mysql.properties` for MySQL credentials
-- Use `npm` scripts from `Server/Client/package.json` to build or test the frontend
+### Base URL
+```
+http://localhost:8080/api
+```
 
-## Smart Job Portal features
+### Candidate Endpoints
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/candidates/profile`
+- `PUT /api/candidates/profile`
+- `POST /api/candidates/profile/upload-resume`
+- `POST /api/candidates/jobs/{jobId}/apply`
+- `GET /api/candidates/applications`
+- `GET /api/candidates/applications/{applicationId}`
+- `GET /api/candidates/recommendations`
+- `GET /api/candidates/resume-score`
+- `POST /api/candidates/mock-interviews`
+- `POST /api/candidates/mock-interviews/questions/{questionId}/answer`
+- `POST /api/candidates/mock-interviews/{sessionId}/complete`
+- `GET /api/candidates/mock-interviews`
 
-- AI Resume Analysis and scoring
-- ATS Resume matching
-- Job recommendations for candidates
-- Resume autofill and resume parsing
-- Job application tracking and status updates
-- Recruiter job posting and applicant management
-- Corporate feed and post management
-- Candidate dashboard and profile management
-- Mock interview creation, answering, and scoring
-- Authentication with role-based access for candidates, recruiters, and admins
-- Email notifications and interview scheduling
-- H2 and MySQL database support
+### Recruiter Endpoints
+- `POST /api/recruiter/jobs`
+- `GET /api/recruiter/jobs/{jobId}/applicants`
+- `GET /api/recruiter/applications/{id}/resume`
+- `PUT /api/recruiter/applications/{id}/status`
+- `POST /api/recruiter/applications/{id}/schedule`
+- `POST /api/recruiter/applications/{id}/email`
 
-## Run backend locally
+### Admin Endpoints
+- `GET /api/admin/users`
+- `DELETE /api/admin/users/{id}`
+- `GET /api/admin/recruiters`
+- `DELETE /api/admin/recruiters/{id}`
+- `DELETE /api/admin/jobs/{id}`
+- `GET /api/admin/dashboard`
+- `GET /api/admin/applications/statistics`
 
-1. Open a terminal in the `Server` folder.
-2. Run:
-   ```powershell
-   mvn spring-boot:run
-   ```
-3. Open browser at `http://localhost:8080`.
+---
 
-## Run frontend locally
+## ▶️ Running the Application
 
-1. Open a terminal in the `Client` folder.
-2. Run:
-   ```powershell
-   npm install
-   npm start
-   ```
-3. Open browser at `http://localhost:4200`.
+### Start the backend
+```bash
+mvn spring-boot:run
+```
 
-## API endpoints
+### Start the frontend
+```bash
+cd Client
+npm start
+```
 
-- `GET /api/jobs` - list all jobs
-- `GET /api/jobs/{id}` - get a job by ID
-- `POST /api/jobs` - create a job
-- `PUT /api/jobs/{id}` - update a job
-- `DELETE /api/jobs/{id}` - delete a job
+### Verify
+1. Open `http://localhost:4200`
+2. Confirm frontend connects to backend
+3. Test candidate and recruiter flows
 
-- `GET /api/users` - list all users
-- `GET /api/users/{id}` - get a user by ID
-- `POST /api/users` - create a user
-- `PUT /api/users/{id}` - update a user
-- `DELETE /api/users/{id}` - delete a user
+---
 
-## Authentication and candidate module
+## 🔧 Development
 
-- `POST /api/auth/register` - register a candidate or employer and receive a JWT token
-- `POST /api/auth/login` - log in and receive a JWT token
-- `GET /api/candidates/profile` - get the logged-in candidate profile
-- `PUT /api/candidates/profile` - update the logged-in candidate profile
-- `POST /api/candidates/profile/upload-resume` - upload a resume (PDF/DOCX)
-- `POST /api/candidates/jobs/{jobId}/apply` - apply for a job
-- `GET /api/candidates/applications` - list logged-in candidate applications
-- `GET /api/candidates/applications/{applicationId}` - view a specific application status
-- `GET /api/candidates/recommendations` - get recommended jobs
-- `GET /api/candidates/resume-score` - view the candidate resume score
-- `POST /api/candidates/mock-interviews` - start a tailored mock interview (`targetRole`, `difficulty`, `questionCount`)
-- `POST /api/candidates/mock-interviews/questions/{questionId}/answer` - save and score an answer
-- `POST /api/candidates/mock-interviews/{sessionId}/complete` - finish a session and calculate its overall score
-- `GET /api/candidates/mock-interviews` - view mock interview history
+### Frontend
+- `npm install`
+- `npm start`
+- `npm run build`
+- `npm test`
 
-## Recruiter module
+### Backend
+- `mvn clean install`
+- `mvn spring-boot:run`
 
-- `POST /api/recruiter/jobs` - post a new job
-- `GET /api/recruiter/jobs/{jobId}/applicants` - view applicants for a job
-- `GET /api/recruiter/applications/{id}/resume` - download a candidate resume
-- `PUT /api/recruiter/applications/{id}/status` - shortlist/reject a candidate
-- `POST /api/recruiter/applications/{id}/schedule` - schedule an interview
-- `POST /api/recruiter/applications/{id}/email` - send an email to the candidate
+### Formatting
+- Prettier for frontend code
 
-## Admin module
+---
 
-- `GET /api/admin/users` - list all users
-- `DELETE /api/admin/users/{id}` - remove a user account
-- `GET /api/admin/recruiters` - list recruiter accounts
-- `DELETE /api/admin/recruiters/{id}` - remove a recruiter account
-- `DELETE /api/admin/jobs/{id}` - remove a fake or invalid job posting
-- `GET /api/admin/dashboard` - view dashboard analytics
-- `GET /api/admin/applications/statistics` - view application statistics
+## 🤝 Contributing
 
-**Note:** these routes require a user with role `admin`.
-
-## H2 console
-
-Access the H2 database console at:
-
-`http://localhost:8080/h2-console`
-
-JDBC URL: `jdbc:h2:file:./data/smartjobdb`
-User: `sa`
-Password: (empty)
-
-## MySQL database (optional)
-
-This project also includes a MySQL profile so you can run against a real SQL database.
-
-1. Create a MySQL database named `smartjobdb`.
-2. Update the credentials in `src/main/resources/application-mysql.properties` if needed.
-3. Run with the MySQL profile:
-   ```powershell
-   mvn spring-boot:run -Dspring-boot.run.profiles=mysql
-   ```
-
-## Next steps
-
-- Add authentication and authorization
-- Add job applications and candidate matching
-- Add frontend UI or integrate with a React/Angular/Vue app
+Contributions are welcome! Create a pull request or open an issue to suggest new features, bug fixes, or improvements.
