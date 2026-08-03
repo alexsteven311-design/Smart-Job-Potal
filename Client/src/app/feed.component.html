@@ -1,0 +1,150 @@
+<div class="feed-page">
+
+  <!-- Hero -->
+  <div class="feed-hero">
+    <h1>Corporate Feed</h1>
+    <p>Stay updated with the latest hiring news, corporate announcements, and success stories from the Indian tech industry.</p>
+  </div>
+
+  <!-- Tabs + Create button -->
+  <div class="feed-toolbar">
+    <div class="tabs">
+      <button *ngFor="let tab of tabs"
+              class="tab-btn"
+              [class.active]="activeTab === tab"
+              (click)="selectTab(tab)">
+        <span *ngIf="tab === 'News'">📰</span>
+        <span *ngIf="tab === 'Hiring'">🚀</span>
+        <span *ngIf="tab === 'Success'">🏆</span>
+        {{ tab }}
+      </button>
+    </div>
+    <button *ngIf="auth.isAuthenticated()" class="btn-create" (click)="showForm = !showForm">
+      {{ showForm ? '✕ Cancel' : '✏️ Share a Post' }}
+    </button>
+  </div>
+
+  <!-- Create Post Form -->
+  <div class="create-card" *ngIf="showForm">
+    <h3>Share with the community</h3>
+    <div class="form-row">
+      <select [(ngModel)]="newPost.category">
+        <option value="NEWS">📰 News</option>
+        <option value="HIRING">🚀 Hiring</option>
+        <option value="SUCCESS">🏆 Success Story</option>
+      </select>
+      <input [(ngModel)]="newPost.company" placeholder="Company (optional)" />
+    </div>
+    <input [(ngModel)]="newPost.title" placeholder="Title *" class="full-input" />
+    <textarea [(ngModel)]="newPost.content" placeholder="What's happening? Share details... *" rows="4"></textarea>
+    <div class="form-row">
+      <input [(ngModel)]="newPost.authorRole" placeholder="Your role (e.g. SDE at Google)" />
+      <input [(ngModel)]="newPost.tags" placeholder="Tags (comma-separated)" />
+    </div>
+    <div class="form-actions">
+      <button class="btn-submit" (click)="submit()" [disabled]="submitting">
+        {{ submitting ? 'Posting...' : 'Post' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">Loading posts...</div>
+
+  <!-- Empty -->
+  <div class="empty" *ngIf="!loading && posts.length === 0">
+    No posts yet in this category.
+  </div>
+
+  <!-- Posts -->
+  <div class="posts-list" *ngIf="!loading">
+    <div class="post-card" *ngFor="let post of posts" [id]="'post-' + post.id">
+
+      <div class="post-header">
+        <div class="avatar">{{ post.authorName?.charAt(0) ?? '?' }}</div>
+        <div class="author-info">
+          <span class="author-name">{{ post.authorName }}</span>
+          <span class="author-role" *ngIf="post.authorRole">{{ post.authorRole }}</span>
+          <span class="post-time">{{ timeAgo(post.createdAt) }}</span>
+        </div>
+        <span class="category-badge" [attr.data-cat]="post.category">
+          {{ categoryIcon(post.category) }} {{ categoryLabel(post.category) }}
+        </span>
+      </div>
+
+      <h3 class="post-title">{{ post.title }}</h3>
+      <p class="post-content">{{ post.content }}</p>
+
+      <div class="tags" *ngIf="post.tags">
+        <span class="tag" *ngFor="let tag of tagList(post.tags)">#{{ tag }}</span>
+      </div>
+
+      <!-- Action bar -->
+      <div class="post-footer">
+        <button class="action-btn like-btn"
+                [class.liked]="likedIds.has(post.id)"
+                (click)="like(post)"
+                [title]="likedIds.has(post.id) ? 'Liked' : 'Like'">
+          <span class="action-icon">{{ likedIds.has(post.id) ? '❤️' : '🤍' }}</span>
+          <span class="action-label">{{ post.likes }}</span>
+        </button>
+
+        <button class="action-btn comment-btn"
+                [class.active]="openCommentPostId === post.id"
+                (click)="toggleComments(post)"
+                title="Comment">
+          <span class="action-icon">💬</span>
+          <span class="action-label">{{ post.comments }}</span>
+        </button>
+
+        <button class="action-btn share-btn"
+                (click)="share(post)"
+                title="Share">
+          <span class="action-icon">🔄</span>
+          <span class="action-label">{{ post.shares ?? 0 }}</span>
+        </button>
+
+        <button *ngIf="canDelete(post)" class="action-btn delete-btn" (click)="delete(post)">
+          🗑️ Delete
+        </button>
+      </div>
+
+      <!-- Comment Panel -->
+      <div class="comment-panel" *ngIf="openCommentPostId === post.id">
+        <div class="comment-loading" *ngIf="commentLoading.get(post.id)">Loading comments…</div>
+
+        <div class="comment-list" *ngIf="!commentLoading.get(post.id)">
+          <div class="comment-empty" *ngIf="(commentMap.get(post.id) ?? []).length === 0">
+            No comments yet. Be the first!
+          </div>
+          <div class="comment-item" *ngFor="let c of commentMap.get(post.id) ?? []">
+            <div class="comment-avatar">{{ c.authorName?.charAt(0) ?? '?' }}</div>
+            <div class="comment-body">
+              <span class="comment-author">{{ c.authorName }}</span>
+              <span class="comment-time">{{ timeAgo(c.createdAt) }}</span>
+              <p class="comment-text">{{ c.content }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="comment-input-row" *ngIf="auth.isAuthenticated()">
+          <input class="comment-input"
+                 [ngModel]="commentInput.get(post.id) ?? ''"
+                 (ngModelChange)="commentInput.set(post.id, $event)"
+                 placeholder="Write a comment…"
+                 (keydown.enter)="submitComment(post)" />
+          <button class="btn-comment-submit"
+                  (click)="submitComment(post)"
+                  [disabled]="commentSubmitting.get(post.id)">
+            {{ commentSubmitting.get(post.id) ? '…' : 'Post' }}
+          </button>
+        </div>
+        <p class="comment-login-hint" *ngIf="!auth.isAuthenticated()">
+          <a routerLink="/login">Log in</a> to comment.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>

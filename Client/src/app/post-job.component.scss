@@ -1,0 +1,44 @@
+.page-shell { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--sp-6); }
+
+.page-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.page-title    { font-size: 1.5rem; font-weight: 800; color: var(--ink-900); letter-spacing: -0.03em; }
+.page-subtitle { color: var(--ink-500); font-size: 0.9rem; }
+
+.post-card {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.form-fields { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+textarea { resize: vertical; min-height: 140px; }
+
+.checkbox-row {
+  display: flex; align-items: center; gap: var(--sp-3);
+  font-size: 0.9rem; font-weight: 500; color: var(--ink-700); cursor: pointer;
+}
+.checkbox-row input[type="checkbox"] { width: 1rem; height: 1rem; accent-color: var(--brand); cursor: pointer; }
+
+.submit-btn {
+  align-self: flex-end;
+  padding: 0.7rem 2rem;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  border-radius: var(--r);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-brand);
+}
+.submit-btn:hover { background: var(--brand-dark); transform: translateY(-1px); }

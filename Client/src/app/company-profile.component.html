@@ -1,0 +1,7 @@
+<section *ngIf="company() as profile" class="profile-page">
+  <a class="back" routerLink="/companies">← All companies</a>
+  <div class="profile-hero card"><div class="monogram">{{ profile.name.charAt(0) }}</div><div><p class="eyebrow">Company profile</p><h1>{{ profile.name }}</h1><p class="rating">★ {{ profile.rating | number:'1.1-1' }} <span>based on {{ profile.reviewCount }} ratings</span></p><p class="locations">{{ profile.locations?.join(' · ') }}</p></div></div>
+  <div class="open-heading"><p class="eyebrow">Hiring now</p><h2>Open positions ({{ profile.openPositionCount }})</h2></div>
+  <article *ngFor="let job of profile.openPositions" class="position card"><div><h3>{{ job.title }}</h3><p>{{ job.location }} · {{ job.remote ? 'Remote' : 'On-site' }} · {{ job.requiredExperienceYears ?? 0 }}+ years</p><p class="description">{{ job.description }}</p></div><a class="btn btn-primary" [routerLink]="['/jobs']" [queryParams]="{ company: profile.name }">View jobs</a></article>
+</section>
+<p *ngIf="error()" class="text-error">{{ error() }}</p>

@@ -1,0 +1,93 @@
+<section class="page-shell">
+  <h1 class="page-title">My Profile</h1>
+
+  <!-- Autofill Banner -->
+  <div class="autofill-banner" *ngIf="autofilled">
+    <div class="autofill-info">
+      <span>✨</span>
+      <div>
+        <p class="autofill-title">Profile autofilled from your resume!</p>
+        <p class="autofill-desc">Review the details below and click Save Changes to confirm.</p>
+      </div>
+    </div>
+    <button class="autofill-dismiss" (click)="dismissAutofill()">✕</button>
+  </div>
+
+  <div class="profile-grid">
+    <div class="info-card">
+      <div class="info-card-top">
+        <div class="avatar">👤</div>
+        <h2>{{ profileForm.value.name || auth.user()?.name || 'Your Name' }}</h2>
+        <p>{{ auth.user()?.email }}</p>
+        <span class="role-badge">{{ auth.user()?.role }}</span>
+      </div>
+      <div class="info-card-body">
+        <div class="info-row" *ngIf="resumeFilename">
+          <span class="info-label">Resume</span>
+          <span class="info-value">📄 {{ resumeFilename }}</span>
+        </div>
+        <div class="info-row" *ngIf="resumeScore !== undefined">
+          <span class="info-label">Resume Score</span>
+          <span class="info-value">{{ resumeScore }}/100</span>
+          <div class="score-bar-wrap">
+            <div class="score-bar-bg">
+              <div class="score-bar-fill" [style.width.%]="resumeScore"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-card">
+      <h3>Basic Information</h3>
+      <form [formGroup]="profileForm" (ngSubmit)="save()" class="form-fields">
+        <div class="field">
+          <label for="profileName">Full Name</label>
+          <input id="profileName" name="profileName" type="text" formControlName="name" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label for="profileEmail">Email</label>
+          <input id="profileEmail" name="profileEmail" type="email" [value]="auth.user()?.email || ''" readonly />
+        </div>
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="profilePhoneNumber">Phone Number</label>
+            <input id="profilePhoneNumber" name="profilePhoneNumber" type="tel" formControlName="phoneNumber" placeholder="+91 98765 43210" />
+          </div>
+          <div class="field">
+            <label for="profileLocation">Location (City, State)</label>
+            <input id="profileLocation" name="profileLocation" type="text" formControlName="location" placeholder="Chennai, Tamil Nadu" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="profileLinkedIn">LinkedIn Profile URL</label>
+          <input id="profileLinkedIn" name="profileLinkedIn" type="url" formControlName="linkedInProfileUrl" placeholder="https://linkedin.com/in/username" />
+        </div>
+        <div class="field">
+          <label for="profileGithub">GitHub Portfolio URL</label>
+          <input id="profileGithub" name="profileGithub" type="url" formControlName="githubPortfolioUrl" placeholder="https://github.com/username" />
+        </div>
+        <div class="field">
+          <label for="profilePortfolio">Personal Portfolio Website</label>
+          <input id="profilePortfolio" name="profilePortfolio" type="url" formControlName="portfolioWebsite" placeholder="https://yourname.dev" />
+        </div>
+        <div class="field">
+          <label for="profileSkills">Skills</label>
+          <input id="profileSkills" name="profileSkills" type="text" formControlName="skills" placeholder="Java, Angular, SQL" />
+        </div>
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="profileExperienceYears">Experience (years)</label>
+            <input id="profileExperienceYears" name="profileExperienceYears" type="number" formControlName="experienceYears" min="0" />
+          </div>
+          <div class="field">
+            <label for="profilePreferredRole">Preferred Role</label>
+            <input id="profilePreferredRole" name="profilePreferredRole" type="text" formControlName="preferredRole" />
+          </div>
+        </div>
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form>
+
+    </div>
+  </div>
+</section>

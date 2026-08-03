@@ -1,0 +1,220 @@
+<section class="page-shell">
+
+  <!-- Header -->
+  <div class="page-hero">
+    <div class="hero-icon">🤖</div>
+    <h1>AI Resume Score Checker</h1>
+    <p>Upload your resume and get instant analysis on skills, ATS compatibility, keywords and experience level</p>
+  </div>
+
+  <!-- Upload Card -->
+  <div class="upload-card">
+    <div class="upload-grid">
+      <div class="upload-zone" [class.has-file]="!!resumeFileName" (click)="fileInput.click()">
+        <div class="upload-icon">{{ resumeFileName ? '✅' : '📄' }}</div>
+        <p class="upload-title">{{ resumeFileName || 'Click to upload your resume' }}</p>
+        <p class="upload-hint">{{ resumeFileName ? 'Click to change file' : 'Supports PDF, DOCX, TXT' }}</p>
+        <input type="file" accept=".pdf,.docx,.txt" #fileInput (change)="onFileSelected($event)" hidden />
+      </div>
+
+      <div class="options-panel">
+        <label class="field-label" for="jobTitleInput">Target Job Title <span class="optional">(Optional — improves keyword analysis)</span></label>
+        <input id="jobTitleInput" type="text" [(ngModel)]="jobTitle" name="jobTitle"
+          placeholder="e.g. Java Developer, Data Scientist" class="job-input" />
+        <button class="analyze-btn" (click)="analyze()" [disabled]="loading || !resumeFile">
+          <span *ngIf="!loading">🔍 Analyze Resume</span>
+          <span *ngIf="loading">⏳ Analyzing…</span>
+        </button>
+        <div class="error-msg" *ngIf="error">{{ error }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-section" *ngIf="result">
+
+    <!-- Overall Score -->
+    <div class="overall-card">
+      <div class="score-ring-wrap">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="54" fill="none" stroke="#e5e7eb" stroke-width="12"/>
+          <circle cx="70" cy="70" r="54" fill="none"
+            [attr.stroke]="getScoreColor(result.overallScore)"
+            stroke-width="12"
+            stroke-linecap="round"
+            stroke-dasharray="339.292"
+            [attr.stroke-dashoffset]="getDashOffset(result.overallScore)"
+            transform="rotate(-90 70 70)"
+            style="transition: stroke-dashoffset 1s ease"/>
+          <text x="70" y="65" text-anchor="middle" font-size="28" font-weight="800" [attr.fill]="getScoreColor(result.overallScore)">{{ result.overallScore }}</text>
+          <text x="70" y="85" text-anchor="middle" font-size="11" fill="#6b7280">/100</text>
+        </svg>
+      </div>
+      <div class="overall-info">
+        <h2>Overall Resume Score</h2>
+        <p class="score-label" [style.color]="getScoreColor(result.overallScore)">{{ getScoreLabel(result.overallScore) }}</p>
+        <p class="parsed-info" *ngIf="result.parsedName">👤 {{ result.parsedName }}</p>
+        <p class="parsed-info" *ngIf="result.parsedEmail">✉️ {{ result.parsedEmail }}</p>
+        <p class="exp-level">🎯 {{ result.expLevel }}</p>
+      </div>
+    </div>
+
+    <!-- Score Breakdown -->
+    <div class="breakdown-grid">
+
+      <div class="score-card">
+        <div class="score-card-header">
+          <span class="score-icon">⚙️</span>
+          <div>
+            <h3>Skills Match</h3>
+            <p class="score-desc">Technical skills detected in resume</p>
+          </div>
+          <span class="score-val" [style.color]="getScoreColor(result.skillScore)">{{ result.skillScore }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="result.skillScore" [style.background]="getScoreColor(result.skillScore)"></div>
+        </div>
+        <div class="tags-wrap" *ngIf="result.foundSkills.length">
+          <span class="tag tag-green" *ngFor="let s of result.foundSkills">{{ s }}</span>
+        </div>
+        <p class="no-data" *ngIf="!result.foundSkills.length">No technical skills detected. Add programming languages, frameworks and tools.</p>
+      </div>
+
+      <div class="score-card">
+        <div class="score-card-header">
+          <span class="score-icon">🤖</span>
+          <div>
+            <h3>ATS Compatibility</h3>
+            <p class="score-desc">Standard sections found by ATS scanners</p>
+          </div>
+          <span class="score-val" [style.color]="getScoreColor(result.atsScore)">{{ result.atsScore }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="result.atsScore" [style.background]="getScoreColor(result.atsScore)"></div>
+        </div>
+        <p class="score-sublabel">Missing sections:</p>
+        <div class="tags-wrap" *ngIf="result.missingAtsSections.length">
+          <span class="tag tag-red" *ngFor="let s of result.missingAtsSections">{{ s }}</span>
+        </div>
+        <p class="no-data" *ngIf="!result.missingAtsSections.length">✅ All standard ATS sections found!</p>
+      </div>
+
+      <div class="score-card">
+        <div class="score-card-header">
+          <span class="score-icon">📈</span>
+          <div>
+            <h3>Experience Level</h3>
+            <p class="score-desc">Detected seniority from resume content</p>
+          </div>
+          <span class="score-val" [style.color]="getScoreColor(result.experienceScore)">{{ result.experienceScore }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="result.experienceScore" [style.background]="getScoreColor(result.experienceScore)"></div>
+        </div>
+        <p class="exp-badge">{{ result.expLevel }}</p>
+      </div>
+
+      <div class="score-card">
+        <div class="score-card-header">
+          <span class="score-icon">🔑</span>
+          <div>
+            <h3>Resume Keywords</h3>
+            <p class="score-desc">Job title keyword match</p>
+          </div>
+          <span class="score-val" [style.color]="getScoreColor(result.keywordScore)">{{ result.keywordScore }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="result.keywordScore" [style.background]="getScoreColor(result.keywordScore)"></div>
+        </div>
+        <div *ngIf="result.matchedKeywords.length || result.missingKeywords.length">
+          <p class="score-sublabel">Matched:</p>
+          <div class="tags-wrap">
+            <span class="tag tag-green" *ngFor="let k of result.matchedKeywords">{{ k }}</span>
+          </div>
+          <p class="score-sublabel" *ngIf="result.missingKeywords.length" style="margin-top:0.5rem">Missing:</p>
+          <div class="tags-wrap">
+            <span class="tag tag-red" *ngFor="let k of result.missingKeywords">{{ k }}</span>
+          </div>
+        </div>
+        <p class="no-data" *ngIf="!result.matchedKeywords.length && !result.missingKeywords.length">Enter a target job title above for keyword analysis.</p>
+      </div>
+
+    </div>
+
+    <!-- Suggestions -->
+    <div class="suggestions-card" *ngIf="result.suggestions.length">
+      <h3>💡 Improvement Suggestions</h3>
+      <ul class="suggestions-list">
+        <li *ngFor="let s of result.suggestions">{{ s }}</li>
+      </ul>
+    </div>
+
+    <div class="success-card" *ngIf="!result.suggestions.length">
+      <span>🎉</span>
+      <p>Your resume looks great! No major issues detected.</p>
+    </div>
+
+    <!-- Job & Internship Suggestions -->
+    <div class="section-card" *ngIf="result.jobSuggestions?.length">
+      <div class="section-header">
+        <span class="section-icon">💼</span>
+        <div>
+          <h3>Suggested Jobs & Internships</h3>
+          <p class="section-desc">Matched from our job board based on your resume skills</p>
+        </div>
+      </div>
+      <div class="job-suggestions-grid">
+        <a class="job-suggest-card" routerLink="/jobs" *ngFor="let job of result.jobSuggestions">
+          <div class="job-suggest-top">
+            <span class="job-suggest-title">{{ job.title }}</span>
+            <span class="remote-pill" *ngIf="job.remote">🌐 Remote</span>
+          </div>
+          <p class="job-suggest-company">🏢 {{ job.company }}</p>
+          <p class="job-suggest-location">📍 {{ job.location }}</p>
+          <div class="job-suggest-footer">
+            <span class="exp-pill" *ngIf="job.requiredExperienceYears != null">{{ job.requiredExperienceYears }}+ yrs exp</span>
+            <span class="apply-link">View Job →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Skill Improvement Tips -->
+    <div class="section-card" *ngIf="result.skillTips?.length">
+      <div class="section-header">
+        <span class="section-icon">🚀</span>
+        <div>
+          <h3>Skill Improvement Tips</h3>
+          <p class="section-desc">Personalised tips based on the skills found in your resume</p>
+        </div>
+      </div>
+      <div class="tips-list">
+        <div class="tip-item" *ngFor="let tip of result.skillTips; let i = index">
+          <div class="tip-number">{{ i + 1 }}</div>
+          <div class="tip-body">
+            <p class="tip-text">{{ tip.tip }}</p>
+            <a class="tip-resource" [href]="tip.resource" target="_blank" rel="noopener">📚 {{ tip.resourceLabel }} ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Autofill Banner -->
+    <div class="autofill-banner" *ngIf="autofillReady">
+      <div class="autofill-info">
+        <span class="autofill-icon">✨</span>
+        <div>
+          <p class="autofill-title">Profile Autofill Ready</p>
+          <p class="autofill-desc">Your name, skills and experience were extracted from your resume. Click to autofill your profile instantly.</p>
+        </div>
+      </div>
+      <button class="autofill-btn" (click)="goToProfile()">Autofill Profile →</button>
+    </div>
+
+    <div class="login-hint" *ngIf="result && !auth.isAuthenticated()">
+      <span>🔒</span> <a routerLink="/login">Log in</a> to autofill your profile with this resume data.
+    </div>
+
+  </div>
+
+</section>

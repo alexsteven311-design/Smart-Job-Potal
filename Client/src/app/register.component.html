@@ -1,0 +1,69 @@
+<section class="page-shell">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-brand-icon">💼</div>
+      <span class="auth-brand-name">TalentBridge</span>
+    </div>
+
+    <div class="auth-header">
+      <h1>Create your account</h1>
+      <p>Join as a candidate or recruiter — it's free</p>
+    </div>
+
+    <form (ngSubmit)="submit()" [formGroup]="form" class="form-fields">
+      <div class="form-grid-2">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" type="text" formControlName="name" placeholder="Jane Doe" />
+        </div>
+        <div class="field">
+          <label for="role">I am a</label>
+          <select id="role" name="role" formControlName="role">
+            <option value="candidate">Candidate</option>
+            <option value="recruiter">Recruiter</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" formControlName="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" formControlName="password" placeholder="Create a strong password" />
+      </div>
+
+      <!-- Recruiter-only field -->
+      <div class="field" *ngIf="isRecruiter">
+        <label for="company">Company Name</label>
+        <input id="company" name="company" type="text" formControlName="company" placeholder="e.g. Acme Corp" />
+      </div>
+
+      <!-- Candidate-only fields -->
+      <ng-container *ngIf="!isRecruiter">
+        <div class="field">
+          <label for="skills">Skills</label>
+          <input id="skills" name="skills" type="text" formControlName="skills" placeholder="e.g. Java, Angular, SQL" />
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="experienceYears">Experience (years)</label>
+            <input id="experienceYears" name="experienceYears" type="number" formControlName="experienceYears" min="0" placeholder="0" />
+          </div>
+          <div class="field">
+            <label for="preferredRole">Preferred Role</label>
+            <input id="preferredRole" name="preferredRole" type="text" formControlName="preferredRole" placeholder="Backend Engineer" />
+          </div>
+        </div>
+      </ng-container>
+
+      <button type="submit" class="submit-btn">Create Account →</button>
+    </form>
+
+    <div class="error-msg" *ngIf="error">{{ error }}</div>
+    <p class="help-text">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</section>

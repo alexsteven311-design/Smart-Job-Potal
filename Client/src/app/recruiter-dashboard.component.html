@@ -1,0 +1,96 @@
+<section class="page-shell">
+  <div class="recruiter-header">
+    <h1 class="page-title">Recruiter Dashboard</h1>
+    <p class="recruiter-sub">Welcome, {{ auth.user()?.name }} 👋</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeTab === 'post'" (click)="activeTab = 'post'">📝 Post a Job</button>
+    <button class="tab-btn" [class.active]="activeTab === 'applicants'" (click)="activeTab = 'applicants'">👥 Applicants</button>
+  </div>
+
+  <!-- Post Job Tab -->
+  <div *ngIf="activeTab === 'post'" class="tab-panel">
+    <div class="card">
+      <h2>Post a New Job</h2>
+      <form [formGroup]="jobForm" (ngSubmit)="submitJob()" class="form-fields">
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Job Title</label>
+            <input type="text" formControlName="title" placeholder="e.g. Senior Java Developer" />
+          </div>
+          <div class="field">
+            <label>Company</label>
+            <input type="text" formControlName="company" placeholder="e.g. Acme Corp" />
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Location</label>
+            <input type="text" formControlName="location" placeholder="e.g. Bangalore, Karnataka" />
+          </div>
+          <div class="field">
+            <label>Role / Category</label>
+            <input type="text" formControlName="role" placeholder="e.g. Backend Developer" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Job Description</label>
+          <textarea formControlName="description" rows="5" placeholder="Describe the role, responsibilities and requirements..."></textarea>
+        </div>
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Experience Required (years)</label>
+            <input type="number" formControlName="requiredExperienceYears" min="0" />
+          </div>
+          <div class="field field-checkbox">
+            <label>
+              <input type="checkbox" formControlName="remote" /> Remote / Hybrid
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Post Job →</button>
+      </form>
+    </div>
+
+    <div class="card" *ngIf="postedJobs.length > 0">
+      <h2>Jobs Posted This Session</h2>
+      <div class="job-list">
+        <div class="job-item" *ngFor="let job of postedJobs">
+          <div class="job-item-info">
+            <span class="job-title">{{ job.title }}</span>
+            <span class="job-meta">{{ job.company }} · {{ job.location }}</span>
+          </div>
+          <button class="view-btn" (click)="viewApplicants(job.id!)">View Applicants</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applicants Tab -->
+  <div *ngIf="activeTab === 'applicants'" class="tab-panel">
+    <div class="card">
+      <h2>Applicants {{ selectedJobId ? 'for Job #' + selectedJobId : '' }}</h2>
+
+      <div *ngIf="loadingApplicants" class="loading">Loading applicants…</div>
+
+      <div *ngIf="!loadingApplicants && applicants.length === 0" class="empty-state">
+        No applicants yet. Post a job and view applicants from the Post a Job tab.
+      </div>
+
+      <div class="applicant-list" *ngIf="!loadingApplicants && applicants.length > 0">
+        <div class="applicant-card" *ngFor="let app of applicants">
+          <div class="applicant-info">
+            <span class="applicant-name">{{ app.job?.title || 'Application #' + app.id }}</span>
+            <span [class]="'badge ' + statusClass(app.status)">{{ app.status }}</span>
+          </div>
+          <div class="applicant-actions">
+            <button class="action-btn shortlist" (click)="updateStatus(app.id, 'SELECTED')">✅ Shortlist</button>
+            <button class="action-btn interview" (click)="updateStatus(app.id, 'INTERVIEW')">📅 Interview</button>
+            <button class="action-btn reject"    (click)="updateStatus(app.id, 'REJECTED')">❌ Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

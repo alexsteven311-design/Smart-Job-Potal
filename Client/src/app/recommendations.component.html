@@ -1,0 +1,170 @@
+<div class="rec-page">
+
+  <!-- Hero -->
+  <div class="rec-hero">
+    <div>
+      <h1>✨ Job Recommendations</h1>
+      <p *ngIf="user">Based on your profile — <strong>{{ user.preferredRole || 'your skills' }}</strong> · {{ user.experienceYears ?? 0 }} yrs exp</p>
+      <p *ngIf="!user">Log in to get personalised matches. Showing top jobs for now.</p>
+    </div>
+    <div class="hero-stats" *ngIf="!loading">
+      <div class="stat"><span class="stat-num">{{ filtered.length }}</span><span class="stat-label">Matches</span></div>
+      <div class="stat"><span class="stat-num">{{ filtered.length > 0 ? filtered[0].matchPercent : 0 }}%</span><span class="stat-label">Top Match</span></div>
+    </div>
+  </div>
+
+  <div class="rec-layout">
+
+    <!-- ── Filters Sidebar ── -->
+    <aside class="filters-panel">
+      <div class="filters-header">
+        <span class="filters-title">🔍 Filters</span>
+        <button class="clear-btn" (click)="clearFilters()">Clear all</button>
+      </div>
+
+      <!-- Location -->
+      <div class="filter-group">
+        <label class="filter-label">📍 Location</label>
+        <input [(ngModel)]="filters.location" (ngModelChange)="applyFilters()"
+               placeholder="e.g. Bangalore" list="loc-list" />
+        <datalist id="loc-list">
+          <option *ngFor="let l of locations" [value]="l"></option>
+        </datalist>
+      </div>
+
+      <!-- Experience -->
+      <div class="filter-group">
+        <label class="filter-label">🎓 Experience (years)</label>
+        <div class="range-row">
+          <input type="number" [(ngModel)]="filters.experienceMin" (ngModelChange)="applyFilters()"
+                 placeholder="Min" min="0" max="30" />
+          <span class="range-sep">–</span>
+          <input type="number" [(ngModel)]="filters.experienceMax" (ngModelChange)="applyFilters()"
+                 placeholder="Max" min="0" max="30" />
+        </div>
+      </div>
+
+      <!-- Salary -->
+      <div class="filter-group">
+        <label class="filter-label">💰 Salary (LPA)</label>
+        <div class="range-row">
+          <input type="number" [(ngModel)]="filters.salaryMin" (ngModelChange)="applyFilters()"
+                 placeholder="Min" min="0" />
+          <span class="range-sep">–</span>
+          <input type="number" [(ngModel)]="filters.salaryMax" (ngModelChange)="applyFilters()"
+                 placeholder="Max" min="0" />
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="filter-group">
+        <label class="filter-label">🛠 Skills</label>
+        <input [(ngModel)]="filters.skills" (ngModelChange)="applyFilters()"
+               placeholder="e.g. Java, React, AWS" />
+        <span class="filter-hint">Comma or space separated</span>
+      </div>
+
+      <!-- Sort -->
+      <div class="filter-group">
+        <label class="filter-label">↕ Sort by</label>
+        <div class="sort-btns">
+          <button [class.active]="sortBy === 'match'" (click)="sortBy='match'; applyFilters()">Best Match</button>
+          <button [class.active]="sortBy === 'salary'" (click)="sortBy='salary'; applyFilters()">Highest Salary</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Cards Grid ── -->
+    <div class="cards-area">
+
+      <div class="loading-state" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Finding your best matches...</p>
+      </div>
+
+      <div class="empty-state" *ngIf="!loading && filtered.length === 0">
+        <span class="empty-icon">🔎</span>
+        <p>No jobs match your current filters.</p>
+        <button class="btn-clear-empty" (click)="clearFilters()">Clear Filters</button>
+      </div>
+
+      <div class="cards-grid" *ngIf="!loading && filtered.length > 0">
+        <div class="job-card" *ngFor="let job of filtered">
+
+          <!-- Match Ring -->
+          <div class="match-ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="28" fill="none" stroke="#e5e7eb" stroke-width="5"/>
+              <circle cx="32" cy="32" r="28" fill="none"
+                      [attr.stroke]="matchColor(job.matchPercent)"
+                      stroke-width="5"
+                      stroke-linecap="round"
+                      [attr.stroke-dasharray]="circumference"
+                      [attr.stroke-dashoffset]="dashOffset(job.matchPercent)"
+                      transform="rotate(-90 32 32)"/>
+            </svg>
+            <div class="ring-label">
+              <span class="ring-pct" [style.color]="matchColor(job.matchPercent)">{{ job.matchPercent }}%</span>
+              <span class="ring-sub">Match</span>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <h2 class="job-title">{{ job.title }}</h2>
+                <p class="job-company">{{ job.company }}</p>
+              </div>
+              <span class="match-badge" [style.background]="matchColor(job.matchPercent) + '18'" [style.color]="matchColor(job.matchPercent)">
+                {{ matchLabel(job.matchPercent) }}
+              </span>
+            </div>
+
+            <div class="job-meta">
+              <div class="meta-item">
+                <span class="meta-icon">💰</span>
+                <div>
+                  <span class="meta-label">Salary</span>
+                  <span class="meta-value">~{{ job.salaryLpa }} LPA</span>
+                </div>
+              </div>
+              <div class="meta-item">
+                <span class="meta-icon">📍</span>
+                <div>
+                  <span class="meta-label">Location</span>
+                  <span class="meta-value">{{ job.location.split(',')[0] }}</span>
+                </div>
+              </div>
+              <div class="meta-item">
+                <span class="meta-icon">🎓</span>
+                <div>
+                  <span class="meta-label">Experience</span>
+                  <span class="meta-value">{{ job.requiredExperienceYears ?? 0 }}+ yrs</span>
+                </div>
+              </div>
+              <div class="meta-item" *ngIf="job.remote">
+                <span class="meta-icon">🌐</span>
+                <div>
+                  <span class="meta-label">Work Mode</span>
+                  <span class="meta-value remote">Remote</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-row">
+              <span class="skill-chip" *ngFor="let s of job.skills">{{ s }}</span>
+            </div>
+
+            <div class="card-footer">
+              <button class="btn-apply" (click)="apply(job.id)">Apply Now →</button>
+              <span class="posted-date" *ngIf="job.postedAt">{{ job.postedAt | date:'MMM d' }}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

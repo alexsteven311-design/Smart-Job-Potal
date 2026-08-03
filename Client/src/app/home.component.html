@@ -1,0 +1,91 @@
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-eyebrow">🇮🇳 India's Smartest Job Platform</span>
+    <h1>Find Your <span class="highlight">Dream Career</span><br>Across India</h1>
+    <p class="hero-sub">AI-powered resume analysis, personalised job matches, and thousands of opportunities — all in one place.</p>
+    <div class="hero-actions">
+      <a routerLink="/jobs" class="btn-hero-primary">Browse Jobs →</a>
+      <a *ngIf="!authService.isAuthenticated()" routerLink="/register" class="btn-hero-outline">Get Started Free</a>
+      <a *ngIf="authService.isAuthenticated()" routerLink="/dashboard" class="btn-hero-outline">Go to Dashboard</a>
+    </div>
+    <div class="hero-trust">
+      <span class="trust-text">Popular categories:</span>
+      <div class="trust-tags">
+        <span *ngFor="let cat of categories" class="trust-tag">{{ cat.icon }} {{ cat.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-bg-blob"></div>
+    <div class="float-card fc-1">
+      <span class="fc-icon">✅</span>
+      <div>
+        <div class="fc-title">Application Sent!</div>
+        <div class="fc-sub">Senior Frontend Dev · Bangalore</div>
+      </div>
+    </div>
+    <div class="float-card fc-2">
+      <span class="fc-icon">📅</span>
+      <div>
+        <div class="fc-title">Interview Scheduled</div>
+        <div class="fc-sub">Tomorrow at 11:00 AM</div>
+      </div>
+    </div>
+    <div class="float-card fc-3">
+      <span class="fc-icon">🤖</span>
+      <div>
+        <div class="fc-title">Resume Score: 87%</div>
+        <div class="fc-sub">ATS Optimised · 3 tips</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-item" *ngFor="let s of stats">
+    <div class="stat-num">{{ s.value }}</div>
+    <div class="stat-lbl">{{ s.label }}</div>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="features-section">
+  <div class="section-label">Why TalentBridge?</div>
+  <h2 class="section-title">Everything you need to land your next role</h2>
+  <div class="features-grid">
+    <div class="feature-card" *ngFor="let f of features">
+      <div class="feature-icon-wrap">{{ f.icon }}</div>
+      <h3>{{ f.title }}</h3>
+      <p>{{ f.desc }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready to take the next step?</h2>
+    <p>Join thousands of candidates who found their dream jobs through TalentBridge.</p>
+    <div class="cta-actions">
+      <a *ngIf="!authService.isAuthenticated()" routerLink="/register" class="btn-cta-white">Create Free Account →</a>
+      <a *ngIf="authService.isAuthenticated()" routerLink="/jobs" class="btn-cta-white">Browse Jobs →</a>
+      <a routerLink="/resume-checker" class="btn-cta-outline">Try AI Resume Checker</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">💼 TalentBridge</div>
+  <div class="footer-links">
+    <a routerLink="/jobs">Jobs</a>
+    <a routerLink="/companies">Companies</a>
+    <a routerLink="/resume-checker">AI Resume</a>
+    <a *ngIf="!authService.isAuthenticated()" routerLink="/login">Sign In</a>
+    <a *ngIf="!authService.isAuthenticated()" routerLink="/register">Register</a>
+  </div>
+  <div class="footer-copy">© {{ currentYear }} TalentBridge. All rights reserved.</div>
+</footer>

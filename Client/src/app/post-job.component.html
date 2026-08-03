@@ -1,0 +1,52 @@
+<section class="page-shell">
+  <div>
+    <h1 class="page-title">Post a New Job</h1>
+    <p class="page-subtitle">Fill in the details below to publish your job listing</p>
+  </div>
+
+  <div class="post-card">
+    <form class="form-fields" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-grid-2">
+        <div class="field">
+          <label for="title">Job Title</label>
+          <input id="title" name="title" type="text" formControlName="title" placeholder="e.g. Senior Java Developer" />
+        </div>
+        <div class="field">
+          <label for="company">Company Name</label>
+          <input id="company" name="company" type="text" formControlName="company" placeholder="e.g. Infosys" />
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field">
+          <label for="location">Location</label>
+          <input id="location" name="location" type="text" formControlName="location" placeholder="e.g. Bengaluru, Karnataka" />
+        </div>
+        <div class="field">
+          <label for="role">Role / Category</label>
+          <input id="role" name="role" type="text" formControlName="role" placeholder="e.g. Backend Engineer" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="description">Job Description</label>
+        <textarea id="description" name="description" formControlName="description" placeholder="Describe responsibilities, requirements and benefits..."></textarea>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field">
+          <label for="requiredExperienceYears">Required Experience (years)</label>
+          <input id="requiredExperienceYears" name="requiredExperienceYears" type="number" formControlName="requiredExperienceYears" min="0" placeholder="0" />
+        </div>
+        <div class="field" style="justify-content: flex-end; padding-bottom: 0.25rem;">
+          <label class="checkbox-row" for="remote">
+            <input id="remote" name="remote" type="checkbox" formControlName="remote" />
+            Remote friendly position
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Publish Job</button>
+    </form>
+  </div>
+</section>

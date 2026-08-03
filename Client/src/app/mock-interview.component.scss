@@ -1,0 +1,68 @@
+.interview-page {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.hero { }
+.eyebrow { color: var(--brand); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.hero h1 { margin: var(--sp-2) 0 var(--sp-2); }
+.hero p:not(.eyebrow) { color: var(--ink-500); font-size: 0.95rem; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.setup {
+  padding: var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.setup label { color: var(--ink-700); font-weight: 600; font-size: 0.875rem; }
+.setup .or   { color: var(--ink-400); font-size: 0.82rem; text-align: center; }
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+.options label { display: grid; gap: var(--sp-1); color: var(--ink-700); font-weight: 600; font-size: 0.875rem; }
+
+.interview { padding: var(--sp-8); }
+
+.session-heading {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4); border-bottom: 1px solid var(--border);
+  padding-bottom: var(--sp-4); margin-bottom: var(--sp-5);
+}
+.progress { color: var(--ink-400); font-size: 0.85rem; font-weight: 600; text-transform: capitalize; }
+
+.interview h3 { font-size: 1.1rem; margin: var(--sp-3) 0 var(--sp-4); color: var(--ink-900); line-height: 1.5; }
+
+textarea { resize: vertical; }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+
+.saved-answer, .feedback, .result {
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: var(--sp-4);
+  margin-top: var(--sp-4);
+}
+.feedback, .result { display: grid; gap: var(--sp-2); }
+.feedback strong { color: var(--success); }
+
+.error-msg { background: var(--danger-light); border: 1px solid #fecaca; color: var(--danger); padding: 0.7rem 1rem; border-radius: var(--r); font-size: 0.875rem; }
+
+@media (max-width: 640px) {
+  .setup, .interview { padding: var(--sp-5); }
+  .options { grid-template-columns: 1fr; }
+  .session-heading { align-items: flex-start; flex-direction: column; }
+}

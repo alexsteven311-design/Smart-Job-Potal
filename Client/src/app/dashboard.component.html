@@ -1,0 +1,121 @@
+<div class="dashboard-shell">
+
+  <!-- Loading -->
+  <div class="loading-wrap" *ngIf="loading">
+    <span class="spinner"></span> Loading dashboard…
+  </div>
+  <div class="error-msg" *ngIf="error">{{ error }}</div>
+
+  <ng-container *ngIf="data && !loading">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div class="welcome-left">
+        <h1>Welcome, {{ data.name }} 👋</h1>
+        <p>Here's a snapshot of your job search progress.</p>
+      </div>
+      <div class="welcome-actions">
+        <a routerLink="/jobs" class="action-btn primary">Browse Jobs</a>
+        <a routerLink="/resume-checker" class="action-btn secondary">Check Resume</a>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#eff6ff">👤</div>
+        <div class="stat-body">
+          <p class="stat-label">Profile Completion</p>
+          <p class="stat-value" [style.color]="profileColor(data.profileCompletion)">{{ data.profileCompletion }}%</p>
+          <div class="stat-bar-bg">
+            <div class="stat-bar-fill" [style.width.%]="data.profileCompletion" [style.background]="profileColor(data.profileCompletion)"></div>
+          </div>
+          <a routerLink="/profile" class="stat-link">Complete profile →</a>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#f0fdf4">📄</div>
+        <div class="stat-body">
+          <p class="stat-label">Resume Score</p>
+          <p class="stat-value" [style.color]="resumeColor(data.resumeScore)">
+            {{ data.resumeScore > 0 ? data.resumeScore + '/100' : 'N/A' }}
+          </p>
+          <div class="stat-bar-bg" *ngIf="data.resumeScore > 0">
+            <div class="stat-bar-fill" [style.width.%]="data.resumeScore" [style.background]="resumeColor(data.resumeScore)"></div>
+          </div>
+          <a routerLink="/resume-checker" class="stat-link">Improve resume →</a>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fefce8">📨</div>
+        <div class="stat-body">
+          <p class="stat-label">Applications</p>
+          <p class="stat-value" style="color:#d97706">{{ data.applicationCount }}</p>
+          <p class="stat-sub">jobs applied</p>
+          <a routerLink="/applied-jobs" class="stat-link">View all →</a>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#faf5ff">📅</div>
+        <div class="stat-body">
+          <p class="stat-label">Upcoming Interviews</p>
+          <p class="stat-value" style="color:#7c3aed">{{ data.upcomingInterviews }}</p>
+          <p class="stat-sub">scheduled</p>
+          <a routerLink="/applied-jobs" class="stat-link">View details →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Grid: Recommendations + Activity -->
+    <div class="bottom-grid">
+
+      <!-- Recommended Jobs -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>✨ Recommended Jobs</h2>
+          <a routerLink="/jobs" class="see-all">See all →</a>
+        </div>
+        <div class="empty-panel" *ngIf="data.recommendations.length === 0">
+          <p>No recommendations yet. Complete your profile and upload a resume to get personalised job matches.</p>
+        </div>
+        <div class="rec-list" *ngIf="data.recommendations.length > 0">
+          <a class="rec-item" *ngFor="let job of data.recommendations" [routerLink]="['/jobs']">
+            <div class="rec-check">✓</div>
+            <div class="rec-info">
+              <p class="rec-title">{{ job.title }}</p>
+              <p class="rec-meta">{{ job.company }} · {{ job.location }}</p>
+            </div>
+            <span class="rec-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>🕐 Recent Activity</h2>
+        </div>
+        <div class="empty-panel" *ngIf="data.recentActivity.length === 0">
+          <p>No activity yet. Start applying to jobs!</p>
+        </div>
+        <div class="activity-list" *ngIf="data.recentActivity.length > 0">
+          <div class="activity-item" *ngFor="let item of data.recentActivity">
+            <span class="activity-icon">{{ item.icon }}</span>
+            <div class="activity-body">
+              <p class="activity-label">{{ item.label }}</p>
+              <p class="activity-company" *ngIf="item.company">{{ item.company }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

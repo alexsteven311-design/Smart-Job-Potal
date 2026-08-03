@@ -1,0 +1,28 @@
+<section class="page-shell">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-brand-icon">💼</div>
+      <span class="auth-brand-name">TalentBridge</span>
+    </div>
+
+    <div class="auth-header">
+      <h1>Welcome back</h1>
+      <p>Sign in to your account to continue</p>
+    </div>
+
+    <form (ngSubmit)="submit()" [formGroup]="form" class="form-fields">
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" formControlName="email" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" formControlName="password" placeholder="Enter your password" />
+      </div>
+      <button type="submit" class="submit-btn">Sign In →</button>
+    </form>
+
+    <div class="error-msg" *ngIf="error">{{ error }}</div>
+    <p class="help-text">Don't have an account? <a routerLink="/register">Create one free</a></p>
+  </div>
+</section>

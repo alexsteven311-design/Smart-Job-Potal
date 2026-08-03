@@ -1,0 +1,115 @@
+<section class="page-shell">
+
+  <!-- Success Banner -->
+  <div class="success-banner" *ngIf="justApplied">
+    <div class="success-banner-inner">
+      <span class="success-icon">🎉</span>
+      <div class="success-text">
+        <strong>Application Submitted Successfully!</strong>
+        <span *ngIf="appliedJobTitle">You applied for <em>{{ appliedJobTitle }}</em><span *ngIf="appliedCompany"> at <em>{{ appliedCompany }}</em></span>.</span>
+      </div>
+      <button class="banner-close" (click)="justApplied = false">✕</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div>
+      <h1>📋 Application Tracker</h1>
+      <p>Track every stage of your job applications in real time.</p>
+    </div>
+    <div class="legend">
+      <span class="legend-item"><span class="dot completed"></span> Completed</span>
+      <span class="legend-item"><span class="dot current"></span> Current</span>
+      <span class="legend-item"><span class="dot pending"></span> Pending</span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-wrap" *ngIf="loading">
+    <span class="spinner"></span> Loading applications…
+  </div>
+
+  <!-- Error -->
+  <div class="error-msg" *ngIf="error">{{ error }}</div>
+
+  <!-- Empty -->
+  <div class="empty-state" *ngIf="!loading && !error && applications.length === 0">
+    <div class="empty-icon">📭</div>
+    <h3>No applications yet</h3>
+    <p>Browse open positions and apply to start tracking your progress.</p>
+    <a routerLink="/jobs" class="browse-btn">Browse Jobs</a>
+  </div>
+
+  <!-- Applications -->
+  <div class="applications-list" *ngIf="!loading && applications.length > 0">
+
+    <div class="summary-bar">
+      {{ applications.length }} application{{ applications.length !== 1 ? 's' : '' }} total
+    </div>
+
+    <div class="app-card" *ngFor="let app of applications" [class.rejected]="isRejected(app.status)">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="job-info">
+          <h2 class="job-title">{{ app.job?.title }}</h2>
+          <div class="job-meta">
+            <span>🏢 {{ app.job?.company }}</span>
+            <span>📍 {{ app.job?.location }}</span>
+            <span class="remote-badge" *ngIf="app.job?.remote">🌐 Remote</span>
+          </div>
+        </div>
+        <div class="status-pill" [class]="app.status?.toLowerCase()">
+          {{ statusSummary(app.status) }}
+        </div>
+      </div>
+
+      <!-- Rejected Banner -->
+      <div class="rejected-banner" *ngIf="isRejected(app.status)">
+        ❌ Your application was not selected this time. Keep going — the right opportunity is ahead!
+      </div>
+
+      <!-- Pipeline Tracker -->
+      <div class="pipeline" *ngIf="!isRejected(app.status)">
+        <ng-container *ngFor="let step of getPipeline(app.status); let i = index; let last = last">
+
+          <!-- Step Node -->
+          <div class="step" [class]="step.state">
+            <div class="step-circle">
+              <span *ngIf="step.state === 'completed'" class="check">✓</span>
+              <span *ngIf="step.state !== 'completed'" class="step-icon">{{ step.icon }}</span>
+            </div>
+            <div class="step-label">{{ step.label }}</div>
+          </div>
+
+          <!-- Connector -->
+          <div class="connector" *ngIf="!last"
+               [class.filled]="getPipeline(app.status)[i + 1]?.state !== 'pending' || step.state === 'completed'">
+          </div>
+
+        </ng-container>
+      </div>
+
+      <!-- Rejected Pipeline (greyed) -->
+      <div class="pipeline rejected-pipeline" *ngIf="isRejected(app.status)">
+        <ng-container *ngFor="let step of getPipeline(app.status); let last = last">
+          <div class="step" [class]="step.state">
+            <div class="step-circle">
+              <span class="step-icon">{{ step.icon }}</span>
+            </div>
+            <div class="step-label">{{ step.label }}</div>
+          </div>
+          <div class="connector" *ngIf="!last"></div>
+        </ng-container>
+      </div>
+
+      <!-- Cover Letter -->
+      <div class="cover-letter" *ngIf="app.coverLetter">
+        <span class="cl-label">Cover Letter:</span> {{ app.coverLetter }}
+      </div>
+
+    </div>
+  </div>
+
+</section>

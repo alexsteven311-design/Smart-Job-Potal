@@ -1,0 +1,37 @@
+<section class="interview-page">
+  <div class="hero">
+    <p class="eyebrow">AI interview practice</p>
+    <h1>Practice questions tailored to a job</h1>
+    <p>Select a vacancy and we will create interview questions from its role and job description.</p>
+  </div>
+
+  <div *ngIf="!session()" class="setup card">
+    <h2>Create your interview</h2>
+    <label>Job description</label>
+    <select [(ngModel)]="selectedJobId">
+      <option [ngValue]="undefined">Choose a job (recommended)</option>
+      <option *ngFor="let job of jobs()" [ngValue]="job.id">{{ job.title }} — {{ job.company }}</option>
+    </select>
+    <p class="or">or enter a target role</p>
+    <input [(ngModel)]="targetRole" placeholder="e.g. Java Developer">
+    <div class="options">
+      <label>Difficulty <select [(ngModel)]="difficulty"><option>EASY</option><option>MEDIUM</option><option>HARD</option></select></label>
+      <label>Questions <select [(ngModel)]="questionCount"><option [ngValue]="3">3</option><option [ngValue]="5">5</option><option [ngValue]="8">8</option></select></label>
+    </div>
+    <button class="btn btn-primary" type="button" [disabled]="loading()" (click)="start()">{{ loading() ? 'Generating…' : 'Generate AI interview' }}</button>
+  </div>
+
+  <div *ngIf="session() as interview" class="interview card">
+    <div class="session-heading"><div><p class="eyebrow">{{ interview.difficulty }} interview</p><h2>{{ interview.jobTitle || interview.targetRole }}</h2></div><button class="btn btn-outline" type="button" (click)="reset()">New interview</button></div>
+    <div *ngIf="interview.status === 'COMPLETED'" class="result"><strong>Overall score: {{ interview.overallScore }}%</strong><span>Your answers have been scored with role relevance, structure, detail, and impact in mind.</span></div>
+    <ng-container *ngIf="currentQuestion() as question">
+      <p class="progress">Question {{ activeQuestion + 1 }} of {{ interview.questions.length }} · {{ question.category.replace('_', ' ') }}</p>
+      <h3>{{ question.question }}</h3>
+      <textarea *ngIf="interview.status !== 'COMPLETED'" [(ngModel)]="answer" rows="7" placeholder="Write your answer using the STAR method: situation, task, action, and result."></textarea>
+      <p *ngIf="question.answer" class="saved-answer"><strong>Your answer:</strong> {{ question.answer }}</p>
+      <div *ngIf="question.score !== undefined" class="feedback"><strong>Score: {{ question.score }}%</strong><span>{{ question.feedback }}</span></div>
+      <div *ngIf="interview.status !== 'COMPLETED'" class="actions"><button class="btn btn-outline" type="button" [disabled]="activeQuestion === 0" (click)="previousQuestion()">Previous</button><button class="btn btn-primary" type="button" [disabled]="!answer.trim() || loading()" (click)="submitAnswer()">Save answer</button><button class="btn btn-outline" type="button" [disabled]="activeQuestion === interview.questions.length - 1" (click)="nextQuestion()">Next</button><button class="btn btn-primary" type="button" (click)="complete()">Complete</button></div>
+    </ng-container>
+  </div>
+  <p *ngIf="error()" class="text-error">{{ error() }}</p>
+</section>

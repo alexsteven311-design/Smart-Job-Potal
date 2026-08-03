@@ -1,0 +1,110 @@
+<div class="cl-page">
+
+  <!-- Header -->
+  <div class="cl-header">
+    <h1>✉️ AI Cover Letter Generator</h1>
+    <p class="text-muted">Upload your resume, pick a job, and get a tailored cover letter in seconds.</p>
+  </div>
+
+  <!-- Step progress -->
+  <div class="steps-bar">
+    <div class="step-item" [class.active]="step() >= 1" [class.done]="step() > 1">
+      <div class="step-circle">{{ step() > 1 ? '✓' : '1' }}</div>
+      <span>Upload Resume</span>
+    </div>
+    <div class="step-line" [class.done]="step() > 1"></div>
+    <div class="step-item" [class.active]="step() >= 2" [class.done]="step() > 2">
+      <div class="step-circle">{{ step() > 2 ? '✓' : '2' }}</div>
+      <span>Choose Job</span>
+    </div>
+    <div class="step-line" [class.done]="step() > 2"></div>
+    <div class="step-item" [class.active]="step() >= 3">
+      <div class="step-circle">3</div>
+      <span>Cover Letter</span>
+    </div>
+  </div>
+
+  <!-- ── Step 1: Upload Resume ── -->
+  <div class="card cl-card" *ngIf="step() === 1">
+    <h2>Upload Your Resume</h2>
+    <p class="text-muted">Accepted formats: PDF or DOCX · Max 5 MB</p>
+
+    <label class="drop-zone" [class.has-file]="resumeFile">
+      <input type="file" accept=".pdf,.docx" (change)="onFileChange($event)" hidden />
+      <span class="drop-icon">{{ resumeFile ? '📄' : '⬆️' }}</span>
+      <span class="drop-label">{{ resumeFile ? resumeFile.name : 'Click to browse or drag & drop' }}</span>
+      <span class="drop-hint" *ngIf="!resumeFile">PDF or DOCX</span>
+    </label>
+
+    <p class="text-error" *ngIf="resumeError">{{ resumeError }}</p>
+
+    <button class="btn btn-primary" (click)="goToStep2()" [disabled]="!resumeFile">
+      Next: Choose a Job →
+    </button>
+  </div>
+
+  <!-- ── Step 2: Choose Job ── -->
+  <div class="card cl-card" *ngIf="step() === 2">
+    <h2>Choose a Job</h2>
+    <p class="text-muted">Select the role you want to apply for.</p>
+
+    <input type="search" placeholder="🔍 Search by title or company…" [(ngModel)]="searchQuery" (input)="filterJobs()" />
+
+    <div class="job-list" *ngIf="!loadingJobs; else loadingTpl">
+      <div *ngIf="filteredJobs.length === 0" class="empty-state">No jobs found.</div>
+      <div
+        class="job-row"
+        *ngFor="let job of filteredJobs"
+        [class.selected]="selectedJob?.id === job.id"
+        (click)="selectJob(job)">
+        <div class="job-row-info">
+          <span class="job-row-title">{{ job.title }}</span>
+          <span class="job-row-meta">{{ job.company }} · {{ job.location }}</span>
+        </div>
+        <span class="job-row-check" *ngIf="selectedJob?.id === job.id">✓</span>
+      </div>
+    </div>
+    <ng-template #loadingTpl>
+      <div class="loading-row">Loading jobs…</div>
+    </ng-template>
+
+    <div class="step2-actions">
+      <button class="btn btn-outline" (click)="step.set(1)">← Back</button>
+      <button class="btn btn-primary" (click)="generate()" [disabled]="!selectedJob">
+        ✨ Generate Cover Letter
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Step 3: Result ── -->
+  <div class="card cl-card" *ngIf="step() === 3">
+    <div *ngIf="generating" class="generating-state">
+      <div class="spinner"></div>
+      <p>Generating your cover letter…</p>
+    </div>
+
+    <ng-container *ngIf="!generating">
+      <div *ngIf="genError" class="text-error">{{ genError }}</div>
+
+      <ng-container *ngIf="coverLetter">
+        <div class="result-header">
+          <div>
+            <h2>Your Cover Letter</h2>
+            <p class="text-muted">{{ jobTitle }} at {{ company }}</p>
+          </div>
+          <div class="result-actions">
+            <button class="btn btn-outline" (click)="copy()">{{ copied ? '✓ Copied' : '📋 Copy' }}</button>
+            <button class="btn btn-outline" (click)="download()">⬇️ Download</button>
+          </div>
+        </div>
+
+        <textarea class="cl-output" rows="18" [(ngModel)]="coverLetter"></textarea>
+
+        <p class="edit-hint text-muted">✏️ You can edit the letter above before copying or downloading.</p>
+      </ng-container>
+
+      <button class="btn btn-outline restart-btn" (click)="restart()">↩ Start Over</button>
+    </ng-container>
+  </div>
+
+</div>

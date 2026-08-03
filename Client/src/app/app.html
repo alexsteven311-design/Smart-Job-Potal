@@ -1,0 +1,110 @@
+<div class="app-shell">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+
+    <!-- Brand -->
+    <div class="sidebar-brand">
+      <div class="brand-icon"></div>
+      <span class="brand-name">TalentBridge</span>
+    </div>
+
+    <!-- Collapse toggle -->
+    <button class="collapse-btn" type="button" (click)="sidebarCollapsed = !sidebarCollapsed"
+      [title]="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+      <span>{{ sidebarCollapsed ? '›' : '‹' }}</span>
+    </button>
+
+    <!-- Nav links -->
+    <nav class="sidebar-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" title="Home">
+        <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
+      </a>
+      <a routerLink="/jobs" routerLinkActive="active" title="Jobs">
+        <span class="nav-icon">💼</span><span class="nav-label">Jobs</span>
+      </a>
+      <a routerLink="/companies" routerLinkActive="active" title="Companies">
+        <span class="nav-icon">🏢</span><span class="nav-label">Companies</span>
+      </a>
+      <a routerLink="/recommendations" routerLinkActive="active" title="For You">
+        <span class="nav-icon">✨</span><span class="nav-label">For You</span>
+      </a>
+      <a routerLink="/feed" routerLinkActive="active" title="Feed">
+        <span class="nav-icon">📰</span><span class="nav-label">Feed</span>
+      </a>
+      <a *ngIf="authService.isAuthenticated() && !authService.isRecruiter()"
+         routerLink="/dashboard" routerLinkActive="active" title="Dashboard">
+        <span class="nav-icon">📊</span><span class="nav-label">Dashboard</span>
+      </a>
+      <a routerLink="/resume-checker" routerLinkActive="active" title="AI Resume">
+        <span class="nav-icon">🤖</span><span class="nav-label">AI Resume</span>
+      </a>
+      <a *ngIf="authService.isAuthenticated() && !authService.isRecruiter()"
+         routerLink="/cover-letter" routerLinkActive="active" title="Cover Letter">
+        <span class="nav-icon">✉️</span><span class="nav-label">Cover Letter</span>
+      </a>
+      <a *ngIf="authService.isAuthenticated() && !authService.isRecruiter()"
+         routerLink="/applied-jobs" routerLinkActive="active" title="Applications">
+        <span class="nav-icon">📋</span><span class="nav-label">Applications</span>
+      </a>
+      <a routerLink="/mock-interview" routerLinkActive="active" title="AI Interview">
+        <span class="nav-icon">🎯</span><span class="nav-label">AI Interview</span>
+      </a>
+      <a *ngIf="authService.isAuthenticated() && authService.isRecruiter()"
+         routerLink="/post-job" routerLinkActive="active" title="Post Job">
+        <span class="nav-icon">➕</span><span class="nav-label">Post Job</span>
+      </a>
+    </nav>
+
+    <!-- Bottom controls -->
+    <div class="sidebar-footer">
+      <app-notification-bell></app-notification-bell>
+
+      <button class="icon-btn" type="button" (click)="toggleTheme()"
+        [title]="darkMode() ? 'Light mode' : 'Dark mode'">
+        <span>{{ darkMode() ? '☀️' : '🌙' }}</span>
+        <span class="nav-label">{{ darkMode() ? 'Light' : 'Dark' }}</span>
+      </button>
+
+      <ng-container *ngIf="!authService.isAuthenticated()">
+        <a routerLink="/login" class="footer-link" title="Sign In">
+          <span class="nav-icon">🔑</span><span class="nav-label">Sign In</span>
+        </a>
+        <a routerLink="/register" class="footer-cta" title="Get Started">
+          <span class="nav-icon">🚀</span><span class="nav-label">Get Started</span>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="authService.isAuthenticated()">
+        <a routerLink="/profile" class="footer-link" title="Profile">
+          <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
+        </a>
+        <button class="footer-link signout-btn" type="button" (click)="authService.logout()" title="Sign Out">
+          <span class="nav-icon">🚪</span><span class="nav-label">Sign Out</span>
+        </button>
+      </ng-container>
+    </div>
+
+  </aside>
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" *ngIf="!sidebarCollapsed && isMobile"
+       (click)="sidebarCollapsed = true"></div>
+
+  <!-- Main content -->
+  <div class="main-wrap" [style.margin-left]="isMobile ? '0' : (sidebarCollapsed ? '64px' : '220px')">
+    <!-- Mobile top bar -->
+    <header class="mobile-bar">
+      <button class="hamburger" type="button" (click)="sidebarCollapsed = !sidebarCollapsed">☰</button>
+      <span class="mobile-brand">TalentBridge</span>
+      <app-notification-bell></app-notification-bell>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+</div>
+
+<app-toast></app-toast>

@@ -1,0 +1,163 @@
+<section class="page-shell">
+
+  <!-- Hero Search -->
+  <div class="search-hero">
+    <h1>Find Your Dream Job in India</h1>
+    <p>Explore {{ allJobs.length }} opportunities across 28 states with top companies</p>
+    <form class="search-bar" [formGroup]="searchForm" (ngSubmit)="loadJobs()">
+      <label for="searchTitle" class="sr-only">Job Title</label>
+      <input id="searchTitle" name="searchTitle" type="text" formControlName="title" placeholder="🔍 Job title or keyword" />
+      <label for="searchCompany" class="sr-only">Company</label>
+      <input id="searchCompany" name="searchCompany" type="text" formControlName="company" placeholder="🏢 Company" />
+      <label for="searchLocation" class="sr-only">Location</label>
+      <input id="searchLocation" name="searchLocation" type="text" formControlName="location" placeholder="📍 Location" />
+      <button type="submit" class="search-btn">Search Jobs</button>
+    </form>
+  </div>
+
+  <!-- Job Type Filter Chips -->
+  <div class="filters-bar">
+    <span class="filter-label">Filter by Category</span>
+    <div class="chips">
+      <button *ngFor="let type of jobTypes" type="button" class="chip"
+        [class.active]="selectedType === type" (click)="selectType(type)">
+        {{ type }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Results bar -->
+  <div class="results-bar">
+    <span class="results-count" *ngIf="!loading">
+      Showing <strong>{{ jobs.length }}</strong> job{{ jobs.length === 1 ? '' : 's' }}
+      <span *ngIf="selectedType"> in <strong>{{ selectedType }}</strong></span>
+    </span>
+    <span *ngIf="error" class="error-msg">{{ error }}</span>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-wrap" *ngIf="loading">
+    <span>⏳</span> Loading jobs…
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!loading && jobs.length === 0">
+    <div style="font-size:2.5rem">🔍</div>
+    <p>No jobs found matching your criteria. Try adjusting your filters.</p>
+  </div>
+
+  <!-- Job Cards -->
+  <div class="job-grid" *ngIf="!loading">
+    <article class="job-card" *ngFor="let job of jobs">
+
+      <div class="card-top">
+        <img class="company-logo" [src]="companyLogo(job)" [alt]="job.company + ' logo'"
+          (error)="useMonogram($event, job.company)" />
+        <div class="card-top-left">
+          <h2 class="job-title">{{ job.title }}</h2>
+          <div class="job-meta">
+            <span>🏢 {{ job.company }}</span>
+            <span>📍 {{ job.location }}</span>
+            <span *ngIf="job.requiredExperienceYears !== undefined">💼 {{ job.requiredExperienceYears }}+ yrs exp</span>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="badge">{{ job.role || 'General' }}</span>
+          <span class="badge" [class.tag-remote]="job.remote" [class.tag-onsite]="!job.remote">
+            {{ job.remote ? '🌐 Remote' : '🏢 On-site' }}
+          </span>
+        </div>
+      </div>
+
+      <p class="job-desc">{{ job.description }}</p>
+
+      <div class="card-footer">
+        <span class="exp-tag">Experience: {{ job.requiredExperienceYears ?? 'Any' }} years</span>
+        <div class="card-actions">
+          <button type="button" class="save-btn" [class.saved]="savedJobIds.has(job.id!)"
+            (click)="toggleSave(job, $event)"
+            [title]="savedJobIds.has(job.id!) ? 'Unsave job' : 'Save job'">
+            {{ savedJobIds.has(job.id!) ? '❤️' : '🤍' }}
+            {{ savedJobIds.has(job.id!) ? 'Saved' : 'Save' }}
+          </button>
+          <button type="button" class="apply-btn" [class.open]="selectedJobId === job.id"
+            (click)="selectedJobId = selectedJobId === job.id ? undefined : job.id">
+            {{ selectedJobId === job.id ? 'Close ✕' : 'Apply Now →' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Apply Panel -->
+      <div *ngIf="selectedJobId === job.id" class="apply-panel">
+
+        <p class="panel-section-title">Personal Information</p>
+        <form [formGroup]="applyForm">
+          <div class="apply-grid">
+            <div class="apply-field">
+              <label for="fullName">Full Name</label>
+              <input id="fullName" name="fullName" type="text" formControlName="fullName" placeholder="Your full name" />
+            </div>
+            <div class="apply-field">
+              <label for="applyEmail">Email Address</label>
+              <input id="applyEmail" name="applyEmail" type="email" formControlName="email" placeholder="you@email.com" />
+            </div>
+            <div class="apply-field">
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" formControlName="phone" placeholder="+91 98765 43210" />
+            </div>
+            <div class="apply-field">
+              <label for="currentLocation">Current Location</label>
+              <input id="currentLocation" name="currentLocation" type="text" formControlName="currentLocation" placeholder="City, State" />
+            </div>
+          </div>
+
+          <p class="panel-section-title" style="margin-top:1rem">Additional Information</p>
+          <div class="apply-grid">
+            <div class="apply-field">
+              <label for="experienceYears">Years of Experience</label>
+              <input id="experienceYears" name="experienceYears" type="number" formControlName="experienceYears" placeholder="e.g. 3" min="0" />
+            </div>
+            <div class="apply-field">
+              <label for="currentCompany">Current Company <span class="optional">(Optional)</span></label>
+              <input id="currentCompany" name="currentCompany" type="text" formControlName="currentCompany" placeholder="e.g. Infosys" />
+            </div>
+            <div class="apply-field">
+              <label for="currentCtc">Current CTC <span class="optional">(Optional)</span></label>
+              <input id="currentCtc" name="currentCtc" type="text" formControlName="currentCtc" placeholder="e.g. 6 LPA" />
+            </div>
+            <div class="apply-field">
+              <label for="expectedCtc">Expected CTC</label>
+              <input id="expectedCtc" name="expectedCtc" type="text" formControlName="expectedCtc" placeholder="e.g. 10 LPA" />
+            </div>
+            <div class="apply-field">
+              <label for="noticePeriod">Notice Period</label>
+              <input id="noticePeriod" name="noticePeriod" type="text" formControlName="noticePeriod" placeholder="e.g. 30 days" />
+            </div>
+          </div>
+
+          <p class="panel-section-title" style="margin-top:1rem">Cover Letter & Resume</p>
+          <div class="apply-field" style="margin-bottom:0.85rem">
+            <label for="coverLetter">Cover Letter</label>
+            <textarea id="coverLetter" name="coverLetter" formControlName="coverLetter" placeholder="Tell us why you're a great fit for this role..."></textarea>
+          </div>
+
+          <div class="apply-field">
+            <label for="resume">Resume <span class="optional">(PDF or DOCX)</span></label>
+            <div class="resume-drop" [class.has-file]="!!resumeFileName" (click)="resumeInput.click()">
+              <span *ngIf="!resumeFileName">📎 Click to attach your resume</span>
+              <span *ngIf="resumeFileName">✅ {{ resumeFileName }}</span>
+            </div>
+            <input id="resume" name="resume" type="file" accept=".pdf,.docx" #resumeInput (change)="onResumeSelected($event)" hidden />
+          </div>
+
+          <div class="panel-actions">
+            <button type="button" class="btn-cancel" (click)="selectedJobId = undefined">Cancel</button>
+            <button type="button" class="btn-submit" (click)="apply(job)">Submit Application →</button>
+          </div>
+        </form>
+      </div>
+
+    </article>
+  </div>
+
+</section>
