@@ -59,3 +59,16 @@ data/
 
 # Maven wrapper
 .mvn/wrapper/maven-wrapper.jar
+
+# Frontend / Node
+Client/node_modules/
+Client/dist/
+Client/.angular/
+Client/.vscode/
+Client/*.log
+Client/npm-debug.log*
+Client/yarn-error.log*
+Client/.DS_Store
+Client/coverage/
+Client/.env
+Client/.env.*

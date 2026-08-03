@@ -1,8 +1,13 @@
-# Smart Job Portal Backend
+# Smart Job Portal
 
-A Spring Boot backend for a smart job portal. It includes job posting and user management APIs, plus an in-memory H2 database for quick development.
+This repository contains both the backend Spring Boot API server and the Angular frontend client for the Smart Job Portal.
 
-## Run locally
+## Project structure
+
+- `Server/` - Spring Boot backend
+- `Client/` - Angular frontend source
+
+## Run backend locally
 
 1. Open a terminal in the `Server` folder.
 2. Run:
@@ -10,6 +15,16 @@ A Spring Boot backend for a smart job portal. It includes job posting and user m
    mvn spring-boot:run
    ```
 3. Open browser at `http://localhost:8080`.
+
+## Run frontend locally
+
+1. Open a terminal in the `Client` folder.
+2. Run:
+   ```powershell
+   npm install
+   npm start
+   ```
+3. Open browser at `http://localhost:4200`.
 
 ## API endpoints
 
