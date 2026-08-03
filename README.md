@@ -65,6 +65,45 @@ Server/
 - `Server/src/main/resources/application.properties` - default Spring Boot configuration
 - `Server/src/main/resources/application-mysql.properties` - MySQL profile configuration
 
+## Setup and Installation
+
+### Prerequisites
+
+- Java 17 or newer
+- Maven 3.8+ installed
+- Node.js 18+ and npm 11+ installed
+- MySQL database (optional, for production)
+
+### Backend setup
+
+1. Open a terminal in the `Server/` folder.
+2. Install dependencies and build the backend:
+   ```powershell
+   mvn clean install
+   ```
+3. Run the backend service:
+   ```powershell
+   mvn spring-boot:run
+   ```
+
+### Frontend setup
+
+1. Open a terminal in the `Server/Client/` folder.
+2. Install frontend dependencies:
+   ```powershell
+   npm install
+   ```
+3. Start the Angular development server:
+   ```powershell
+   npm start
+   ```
+
+### Configuration
+
+- Update backend database configuration in `Server/src/main/resources/application.properties` for H2
+- Update `Server/src/main/resources/application-mysql.properties` for MySQL credentials
+- Use `npm` scripts from `Server/Client/package.json` to build or test the frontend
+
 ## Smart Job Portal features
 
 - AI Resume Analysis and scoring
