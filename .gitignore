@@ -1,0 +1,61 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/release.properties
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+**/.mvn/timing.properties
+
+# IntelliJ IDEA
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Spring Boot
+spring.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Build output
+bin/
+
+# User-specific files
+*.swp
+*~
+
+# Uploaded documents or generated data
+uploads/
+
+data/
+
+# Exclude local database files if present
+*.db
+*.h2.db
+
+# Java
+*.class
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar

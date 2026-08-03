@@ -1,0 +1,15 @@
+﻿John Doe
+john.doe@example.com
+
+Summary
+Java backend developer with Spring Boot, REST APIs, and SQL experience.
+
+Skills
+Java, Spring Boot, REST, SQL, Git, Docker
+
+Education
+B.Tech in Computer Science
+
+Experience
+- Built REST APIs using Spring Boot and Hibernate.
+- Improved system availability by 20%.
