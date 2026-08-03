@@ -258,4 +258,4 @@ Contributions are welcome! Create a pull request or open an issue to suggest new
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_231023_localhost.jpeg?raw=true)
 
-
+![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23119_localhost.jpeg?raw=true)
