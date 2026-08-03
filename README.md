@@ -1,11 +1,34 @@
 # Smart Job Portal
 
-This repository contains both the backend Spring Boot API server and the Angular frontend client for the Smart Job Portal.
+## Overview
 
-## Project structure
+The Smart Job Portal is a full-stack application that connects job seekers, recruiters, and administrators with intelligent hiring workflows. It includes an Angular frontend and a Spring Boot backend, with features for resume analysis, job matching, application tracking, mock interviews, and recruiter management.
 
-- `Server/` - Spring Boot backend
-- `Client/` - Angular frontend source
+## Table of Contents
+
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Smart Job Portal features](#smart-job-portal-features)
+- [Run backend locally](#run-backend-locally)
+- [Run frontend locally](#run-frontend-locally)
+- [Database support](#database-support)
+
+## Tech Stack
+
+- Backend: Java, Spring Boot, Spring Data JPA, Spring Security
+- Frontend: Angular
+- Database: H2 (development) and MySQL (optional production profile)
+- Build tools: Maven for backend, npm/Angular CLI for frontend
+- Authentication: JWT-based role access for candidates, recruiters, and admins
+
+## Project Structure
+
+- `Server/` - Spring Boot backend source, API controllers, services, models, repositories, and application configuration
+- `Server/Client/` - Angular frontend source, UI components, routes, and client app configuration
+- `Server/src/main/resources/static/` - static frontend build assets served by the backend
+- `Server/src/main/resources/application.properties` - default Spring Boot configuration
+- `Server/src/main/resources/application-mysql.properties` - MySQL profile configuration
 
 ## Smart Job Portal features
 
