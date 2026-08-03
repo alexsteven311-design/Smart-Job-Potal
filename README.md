@@ -7,6 +7,21 @@ This repository contains both the backend Spring Boot API server and the Angular
 - `Server/` - Spring Boot backend
 - `Client/` - Angular frontend source
 
+## Smart Job Portal features
+
+- AI Resume Analysis and scoring
+- ATS Resume matching
+- Job recommendations for candidates
+- Resume autofill and resume parsing
+- Job application tracking and status updates
+- Recruiter job posting and applicant management
+- Corporate feed and post management
+- Candidate dashboard and profile management
+- Mock interview creation, answering, and scoring
+- Authentication with role-based access for candidates, recruiters, and admins
+- Email notifications and interview scheduling
+- H2 and MySQL database support
+
 ## Run backend locally
 
 1. Open a terminal in the `Server` folder.
