@@ -242,4 +242,6 @@ npm start
 
 Contributions are welcome! Create a pull request or open an issue to suggest new features, bug fixes, or improvements.
 
+![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23226_localhost.jpeg?raw=true)
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23338_localhost.jpeg?raw=true)
