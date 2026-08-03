@@ -21,6 +21,7 @@ The Smart Job Portal is a full-stack application that connects job seekers, recr
 - Database: H2 (development) and MySQL (optional production profile)
 - Build tools: Maven for backend, npm/Angular CLI for frontend
 - Authentication: JWT-based role access for candidates, recruiters, and admins
+- Development tools: IntelliJ IDEA / VS Code, Git, Postman, Maven Wrapper, npm scripts, Prettier
 
 ## Project Structure
 
