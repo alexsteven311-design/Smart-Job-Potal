@@ -242,12 +242,16 @@ npm start
 
 Contributions are welcome! Create a pull request or open an issue to suggest new features, bug fixes, or improvements.
 
+---
+
+**<h2>👤 Author</h2>**
+Alex Steven
+
+- GitHub: GitHub: [@alexsteven311-design](https://github.com/alexsteven311-design)
+
 **Happy Coding!✌️**
 
-👤 Author
-- Alex Steven
-
-GitHub: @alexsteven311-design
+---
 
 **<h2>🏠 Home Page</h2>**
 
@@ -273,6 +277,8 @@ The home page provides an attractive landing experience for job seekers. It high
 
 - Responsive Dark Theme
 
+---
+
 **<h2>👤 User Profile Management</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_232132_localhost.jpeg?raw=true)
@@ -286,6 +292,8 @@ The home page provides an attractive landing experience for job seekers. It high
 - Input fields for contact details, LinkedIn, GitHub portfolio, and personal website links.
 
 - Experience summary section featuring years of experience, preferred role, and an indexed list of technical skills.
+
+---
 
 **<h2>👤 Candidate Registration</h2>**
 
@@ -309,6 +317,8 @@ The registration page allows new candidates to create an account by providing th
 
 - Secure account creation
 
+---
+
 **<h2>🔐 Login Page</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124413_localhost.jpeg?raw=true)
@@ -326,6 +336,8 @@ A secure authentication page that allows registered users to access their person
 - Clean responsive design
 
 - Redirect to dashboard after login
+
+---
 
 **<h2>💼 Job Listings</h2>**
 
@@ -353,6 +365,8 @@ The Jobs page allows users to search and explore opportunities from different co
 
 - Experience-based filtering
 
+---
+
 **<h2>📄 Easy Apply Portal</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_3-8-2026_124936_localhost.jpeg?raw=true)
@@ -376,7 +390,10 @@ The application page enables candidates to submit job applications effortlessly.
 
 - Validation and confirmation
 
+---
+
 **<h2>🏢 Company Directory & Ratings</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_2353_localhost.jpeg?raw=true)
 
 **Overview:** Searchable employer discovery module for exploring potential workplaces.
@@ -388,6 +405,8 @@ The application page enables candidates to submit job applications effortlessly.
 - User rating indicators and review counts for company reputation insight.
 
 - Open position counts per organization with direct navigation links.
+
+---
 
 **<h2>🎯 AI-Powered Job Recommendations</h2>**
 
@@ -403,7 +422,10 @@ The application page enables candidates to submit job applications effortlessly.
 
 - Card-based job postings displaying required skills, location, estimated salary, and direct application triggers.
 
+---
+
 **<h2>📰 Corporate News & Community Feed:</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23816_localhost.jpeg?raw=true)
 
 **Overview:** Real-time social and tech industry news feed keeping job seekers informed.
@@ -415,6 +437,8 @@ The application page enables candidates to submit job applications effortlessly.
 - Interactive posts with engagement metrics (likes, comments, reposts).
 
 - Community post creation tool allowing users to share announcements.
+
+---
 
 **<h2>📊 User Dashboard</h2>**
 
@@ -430,6 +454,8 @@ The application page enables candidates to submit job applications effortlessly.
 
 - Personalized job recommendations based on user activity and profile details.
 
+---
+
 **<h2>📄 AI Resume Score Checker</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_23931_localhost.jpeg?raw=true)
@@ -444,6 +470,8 @@ The application page enables candidates to submit job applications effortlessly.
 
 - Curated list of suggested jobs matching detected resume skills along with targeted skill improvement resources.
 
+---
+
 **<h2>📝 AI Cover Letter Generator</h2>**
 
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_231023_localhost.jpeg?raw=true)
@@ -457,6 +485,8 @@ The application page enables candidates to submit job applications effortlessly.
 - Fully editable text preview area allowing customization before finalizing.
 
 - One-click action buttons to copy to clipboard or download as a document.
+
+---
 
 **<h2>💬 AI Interview Question & Answer Interface</h2>**
 
@@ -474,7 +504,10 @@ The application page enables candidates to submit job applications effortlessly.
 
 - Navigation controls to seamlessly transition through interview questions.
 
+---
+
 **<h2>📈 AI Interview Evaluation & Feedback</h2>**
+
 ![image alt](https://github.com/alexsteven311-design/Smart-Job-Potal/blob/main/Screenshot_1-8-2026_231552_localhost.jpeg?raw=true)
 
 **Overview:** Automated evaluation screen providing detailed feedback on completed interview responses.
@@ -486,6 +519,8 @@ The application page enables candidates to submit job applications effortlessly.
 - Detailed breakdown of user responses alongside targeted suggestions for improvement.
 
 - Question-by-question scoring to identify specific areas for growth.
+
+---
 
 **<h2>💼 Recruiter Dashboard (Job Posting)</h2>**
 
@@ -501,3 +536,12 @@ The application page enables candidates to submit job applications effortlessly.
 
 - Options to toggle workplace arrangements like Remote / Hybrid work settings.
 
+---
+
+**<h2>🎯 Conclusion</h2>**
+
+TalentBridge is a comprehensive full-stack job portal designed to simplify the recruitment process for both job seekers and employers. By combining modern web technologies such as Angular, Spring Boot, MySQL, and REST APIs, the platform delivers a secure, responsive, and user-friendly experience for job searching, profile management, and online applications.
+
+The project demonstrates core software engineering concepts including authentication, CRUD operations, RESTful API development, database integration, responsive UI design, and role-based functionality. It also lays the foundation for future enhancements such as AI-powered resume analysis, intelligent job recommendations, interview scheduling, real-time notifications, and recruiter dashboards.
+
+This project showcases my skills in Java, Spring Boot, Angular, MySQL, full-stack development, and problem-solving, while reflecting my ability to design and build scalable, real-world web applications.
